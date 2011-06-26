@@ -10,7 +10,7 @@ namespace Cielo.Exemplo.Controllers
         {
             var cielo = new CieloClient();
 
-            var pedido = new DadosPedido("1254", 1.02M, "produto");
+            var pedido = new DadosPedido("1254", 1.00M, "produto");
 
             var resposta = cielo.CriarTransacao(pedido, Bandeira.Visa, new Uri("http://localhost:57660/Home/Retorno/1254"));
 
