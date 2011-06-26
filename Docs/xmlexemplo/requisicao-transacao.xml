@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<requisicao-transacao id="1279133411408" versao="1.1.0">
+	<dados-ec>
+		<numero>1006993069</numero>
+		<chave>
+			25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3
+		</chave>
+	</dados-ec>
+	<dados-portador>
+		<numero>4551870000000183</numero>
+		<validade>201501</validade>
+		<indicador>1</indicador>
+		<codigo-seguranca>585</codigo-seguranca>
+	</dados-portador>
+	<dados-pedido>
+		<numero>1503604566</numero>
+		<valor>100</valor>
+		<moeda>986</moeda>
+		<data-hora>2010-07-14T15:50:11</data-hora>
+		<idioma>PT</idioma>
+	</dados-pedido>
+	<forma-pagamento>
+		<bandeira>visa</bandeira>
+		<produto>2</produto>
+		<parcelas>2</parcelas>
+	</forma-pagamento>
+	<url-retorno>null</url-retorno>
+	<autorizar>0</autorizar>
+	<capturar>false</capturar>
+</requisicao-transacao>

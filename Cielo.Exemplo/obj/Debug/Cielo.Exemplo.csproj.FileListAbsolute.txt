@@ -1,0 +1,9 @@
+D:\Marcelo\Documents\Visual Studio 2010\Projects\Cielo\Cielo.Exemplo\bin\Cielo.Exemplo.dll
+D:\Marcelo\Documents\Visual Studio 2010\Projects\Cielo\Cielo.Exemplo\bin\Cielo.Exemplo.pdb
+D:\Marcelo\Documents\Visual Studio 2010\Projects\Cielo\Cielo.Exemplo\bin\Cielo.dll
+D:\Marcelo\Documents\Visual Studio 2010\Projects\Cielo\Cielo.Exemplo\bin\EntityFramework.dll
+D:\Marcelo\Documents\Visual Studio 2010\Projects\Cielo\Cielo.Exemplo\bin\Cielo.pdb
+D:\Marcelo\Documents\Visual Studio 2010\Projects\Cielo\Cielo.Exemplo\bin\EntityFramework.xml
+D:\Marcelo\Documents\Visual Studio 2010\Projects\Cielo\Cielo.Exemplo\obj\Debug\ResolveAssemblyReference.cache
+D:\Marcelo\Documents\Visual Studio 2010\Projects\Cielo\Cielo.Exemplo\obj\Debug\Cielo.Exemplo.dll
+D:\Marcelo\Documents\Visual Studio 2010\Projects\Cielo\Cielo.Exemplo\obj\Debug\Cielo.Exemplo.pdb

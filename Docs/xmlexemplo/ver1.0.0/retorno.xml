@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<transacao id="1" versao="1.0.0">
+	<tid>10069930690004381001</tid>
+	<pan>o6kb8fMLlTSaHbmSt1cMiQ==</pan>
+	<dados-pedido>
+		<numero>633834383369859337</numero>
+		<valor>100</valor>
+		<moeda>986</moeda>
+		<data-hora>2009-07-17T14:38:56</data-hora>
+	</dados-pedido>
+	<forma-pagamento>
+		<produto>1</produto>
+		<parcelas>1</parcelas>
+	</forma-pagamento>
+	<status>3</status>
+</transacao>

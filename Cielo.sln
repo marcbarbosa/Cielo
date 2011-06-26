@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cielo", "Cielo\Cielo.csproj", "{9529C9AD-E565-43EF-B95E-371172BD19CC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cielo.Exemplo", "Cielo.Exemplo\Cielo.Exemplo.csproj", "{18D3A685-D88C-4B35-A38B-7E258E78D41D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9529C9AD-E565-43EF-B95E-371172BD19CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9529C9AD-E565-43EF-B95E-371172BD19CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9529C9AD-E565-43EF-B95E-371172BD19CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9529C9AD-E565-43EF-B95E-371172BD19CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18D3A685-D88C-4B35-A38B-7E258E78D41D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18D3A685-D88C-4B35-A38B-7E258E78D41D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18D3A685-D88C-4B35-A38B-7E258E78D41D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18D3A685-D88C-4B35-A38B-7E258E78D41D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

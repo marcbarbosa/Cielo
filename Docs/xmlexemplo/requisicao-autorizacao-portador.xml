@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<requisicao-autorizacao-portador id="1279133411252" versao="1.1.0">
+	<tid>1006993069002255A001</tid>
+	<dados-ec>
+		<numero>1001734898</numero>
+		<chave>
+			e84827130b9837473681c2787007da5914d6359947015a5cdb2b8843db0fa832
+		</chave>
+	</dados-ec>
+	<dados-cartao>
+		<numero>4551870000000183</numero>
+		<validade>201501</validade>
+		<indicador>1</indicador>
+		<codigo-seguranca>585</codigo-seguranca>
+	</dados-cartao>
+	<dados-pedido>
+		<numero>1604001115</numero>
+		<valor>100</valor>
+		<moeda>986</moeda>
+		<data-hora>2010-07-14T15:50:11</data-hora>
+		<idioma>PT</idioma>
+	</dados-pedido>
+	<forma-pagamento>
+		<bandeira>visa</bandeira>
+		<produto>A</produto>
+		<parcelas>1</parcelas>
+	</forma-pagamento>
+	<capturar-automaticamente>false</capturar-automaticamente>
+</requisicao-autorizacao-portador>
