@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
 using Cielo.Messages;
+using Cielo.Helpers;
 
 namespace Cielo.Exemplo.Controllers
 {
@@ -32,7 +33,7 @@ namespace Cielo.Exemplo.Controllers
 
             if (!resposta.IsErro())
             {
-                resposta = cielo.CancelarTransacao(resposta.Transacao.tid);
+                resposta = cielo.CapturarTransacao(resposta.Transacao.tid, 0.5M, "capturanto metade do valor");
             }
 
             return View();
