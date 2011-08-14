@@ -222,34 +222,6 @@ namespace Cielo
 
         #region "Private Methods"
 
-        //private Retorno ChamadaCielo<T>(string tid)
-        //{
-        //    var ret = new Retorno();
-
-        //    var dadosEc = new DadosEcAutenticacao { numero = Numero, chave = Chave };
-
-        //    dynamic msg = Activator.CreateInstance<T>();
-        //    msg.id = DateTime.Now.ToString("yyyyMMdd");
-        //    msg.versao = MensagemVersao.v110;
-        //    msg.tid = tid;
-        //    msg.dadosec = dadosEc;
-
-        //    try
-        //    {
-        //        var xml = msg.ToXml<T>(Encoding.GetEncoding("iso-8859-1"));
-
-        //        var res = EnviarMensagem(xml);
-
-        //        ret = XmlToRetorno(res);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-
-        //    return ret;
-        //}
-
         private Retorno XmlToRetorno(string xml)
         {
             var ret = new Retorno();
