@@ -44,11 +44,13 @@ namespace Cielo.Helpers
             var Writer = new StreamWriter(Request.GetRequestStream());
             Writer.Write(pData);
             Writer.Close();
+            Writer.Dispose();
 
             var Response = (HttpWebResponse)Request.GetResponse();
             StreamReader Reader = new StreamReader(Response.GetResponseStream());
             Ret = Reader.ReadToEnd();
             Reader.Close();
+            Reader.Dispose();
 
             return Ret;
         }
