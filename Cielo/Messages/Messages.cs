@@ -310,25 +310,25 @@ namespace Cielo.Messages
     public enum Status
     {
         [XmlEnumAttribute("0")]
-        Criada = 1,
+        Criada = 0,
 
         [XmlEnumAttribute("1")]
-        EmAndamento = 2,
+        EmAndamento = 1,
 
         [XmlEnumAttribute("2")]
-        Autenticada = 3,
+        Autenticada = 2,
 
         [XmlEnumAttribute("3")]
-        NaoAutenticada = 4,
+        NaoAutenticada = 3,
 
         [XmlEnumAttribute("4")]
-        AutorizadaOuPendenteDeCaptura = 5,
+        AutorizadaOuPendenteDeCaptura = 4,
 
         [XmlEnumAttribute("5")]
-        NaoAutorizada = 6,
+        NaoAutorizada = 5,
 
         [XmlEnumAttribute("6")]
-        Capturada = 7,
+        Capturada = 6,
 
         [XmlEnumAttribute("8")]
         NaoCapturada = 8,
@@ -497,7 +497,7 @@ namespace Cielo.Messages
         public DadosPedido(string numero, decimal valor, string descricao)
         {
             numeroField = numero;
-            valorField = valor.CieloFormat();
+            valorField = valor.ToFormatoCielo();
             moedaField = Moeda.Real;
             datahoraField = DateTime.Now;
             descricaoField = descricao;
