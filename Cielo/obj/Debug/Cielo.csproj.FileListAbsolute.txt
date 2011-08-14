@@ -1,5 +1,0 @@
-D:\Marcelo\Documents\Visual Studio 2010\Projects\Cielo\Cielo\bin\Debug\Cielo.dll
-D:\Marcelo\Documents\Visual Studio 2010\Projects\Cielo\Cielo\bin\Debug\Cielo.pdb
-D:\Marcelo\Documents\Visual Studio 2010\Projects\Cielo\Cielo\obj\Debug\ResolveAssemblyReference.cache
-D:\Marcelo\Documents\Visual Studio 2010\Projects\Cielo\Cielo\obj\Debug\Cielo.dll
-D:\Marcelo\Documents\Visual Studio 2010\Projects\Cielo\Cielo\obj\Debug\Cielo.pdb
