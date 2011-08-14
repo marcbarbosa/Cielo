@@ -22,6 +22,15 @@ namespace Cielo
 
         public CieloClient()
         {
+            if (ConfigurationManager.AppSettings["Cielo.Numero"] == null)
+                throw new ArgumentNullException("Cielo.Numero");
+
+            if (ConfigurationManager.AppSettings["Cielo.Chave"] == null)
+                throw new ArgumentNullException("Cielo.Chave");
+
+            if (ConfigurationManager.AppSettings["Cielo.Ambiente"] == null)
+                throw new ArgumentNullException("Cielo.Ambientes");
+
             Numero = ConfigurationManager.AppSettings["Cielo.Numero"];
             Chave = ConfigurationManager.AppSettings["Cielo.Chave"];
 
@@ -138,36 +147,6 @@ namespace Cielo
             return ret;
         }
 
-        public Retorno CapturarTransacao(string tid)
-        {
-            var ret = new Retorno();
-
-            var dadosEc = new DadosEcAutenticacao { numero = Numero, chave = Chave };
-
-            var msg = new RequisicaoCaptura
-            {
-                id = DateTime.Now.ToString("yyyyMMdd"),
-                versao = MensagemVersao.v110,
-                tid = tid,
-                dadosec = dadosEc
-            };
-
-            try
-            {
-                var xml = msg.ToXml<RequisicaoCaptura>(Encoding.GetEncoding("iso-8859-1"));
-
-                var res = EnviarMensagem(xml);
-
-                ret = XmlToRetorno(res);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-
-            return ret;
-        }
-
         public Retorno CancelarTransacao(string tid)
         {
             var ret = new Retorno();
@@ -198,9 +177,78 @@ namespace Cielo
             return ret;
         }
 
+        public Retorno CapturarTransacao(string tid)
+        {
+            return CapturarTransacao(tid, -1, string.Empty);
+        }
+
+        public Retorno CapturarTransacao(string tid, decimal valor, string anexo)
+        {
+            var ret = new Retorno();
+
+            var dadosEc = new DadosEcAutenticacao { numero = Numero, chave = Chave };
+
+            var msg = new RequisicaoCaptura
+            {
+                id = DateTime.Now.ToString("yyyyMMdd"),
+                versao = MensagemVersao.v110,
+                tid = tid,
+                dadosec = dadosEc
+            };
+
+            if (valor > -1)
+                msg.valor = valor.ToFormatoCielo();
+
+            if (!string.IsNullOrWhiteSpace(anexo))
+                msg.anexo = anexo;
+
+            try
+            {
+                var xml = msg.ToXml<RequisicaoCaptura>(Encoding.GetEncoding("iso-8859-1"));
+
+                var res = EnviarMensagem(xml);
+
+                ret = XmlToRetorno(res);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return ret;
+        }
+
         #endregion
 
         #region "Private Methods"
+
+        //private Retorno ChamadaCielo<T>(string tid)
+        //{
+        //    var ret = new Retorno();
+
+        //    var dadosEc = new DadosEcAutenticacao { numero = Numero, chave = Chave };
+
+        //    dynamic msg = Activator.CreateInstance<T>();
+        //    msg.id = DateTime.Now.ToString("yyyyMMdd");
+        //    msg.versao = MensagemVersao.v110;
+        //    msg.tid = tid;
+        //    msg.dadosec = dadosEc;
+
+        //    try
+        //    {
+        //        var xml = msg.ToXml<T>(Encoding.GetEncoding("iso-8859-1"));
+
+        //        var res = EnviarMensagem(xml);
+
+        //        ret = XmlToRetorno(res);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+
+        //    return ret;
+        //}
 
         private Retorno XmlToRetorno(string xml)
         {
@@ -230,7 +278,7 @@ namespace Cielo
         private string EnviarMensagem(string xml)
         {
             var http = new EasyHttpClient("iso-8859-1", "application/x-www-form-urlencoded", "CieloClient");
-            
+
             return http.Post(Endpoint.AbsoluteUri, string.Format("mensagem={0}", xml));
         }
 
