@@ -970,18 +970,23 @@ namespace Cielo.Messages
     [XmlTypeAttribute(AnonymousType = true, Namespace = "http://ecommerce.cbmp.com.br")]
     public enum MensagemVersao
     {
-
-
         [XmlEnumAttribute("1.0.0")]
         v100,
-
 
         [XmlEnumAttribute("1.1.0")]
         v110,
 
-
         [XmlEnumAttribute("1.1.1")]
         v111,
+
+        [XmlEnumAttribute("1.2.0")]
+        v120,
+
+        [XmlEnumAttribute("1.3.0")]
+        v130,
+
+        [XmlEnumAttribute("1.4.0")]
+        v140,
     }
 
 
