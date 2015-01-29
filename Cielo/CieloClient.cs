@@ -5,20 +5,15 @@ using System.Text;
 using System.Configuration;
 using Cielo.Messages;
 using Cielo.Helpers;
+using System.Threading.Tasks;
 
 namespace Cielo
 {
-    public class CieloClient
+    public class CieloClient : ICieloClient
     {
-        #region "Private"
-
         private string Numero;
         private string Chave;
         private Uri Endpoint;
-
-        #endregion
-
-        #region "Constructor"
 
         public CieloClient()
         {
@@ -40,21 +35,17 @@ namespace Cielo
                 Endpoint = new Uri(ConfigurationManager.AppSettings["Cielo.UrlTeste"]);
         }
 
-        #endregion
-
-        #region "Public Methods"
-
-        public Retorno CriarTransacao(DadosPedido dadosPedido, FormaPagamentoBandeira bandeira, Uri urlRetorno)
+        public async Task<Retorno> CriarTransacao(DadosPedido dadosPedido, FormaPagamentoBandeira bandeira, Uri urlRetorno)
         {
             var dadosEc = new DadosEcAutenticacao { numero = Numero, chave = Chave };
             var formaPagamento = new FormaPagamento { bandeira = bandeira, parcelas = 1, produto = FormaPagamentoProduto.CreditoAVista };
             var req = RequisicaoNovaTransacaoAutorizar.AutorizarAutenticadaENaoAutenticada;
             var capturar = true;
 
-            return CriarTransacao(dadosPedido, dadosEc, formaPagamento, urlRetorno, req, capturar);
+            return await CriarTransacao(dadosPedido, dadosEc, formaPagamento, urlRetorno, req, capturar);
         }
 
-        public Retorno CriarTransacao(DadosPedido dadosPedido, DadosEcAutenticacao dadosEc, FormaPagamento formaPagamento,
+        public async Task<Retorno> CriarTransacao(DadosPedido dadosPedido, DadosEcAutenticacao dadosEc, FormaPagamento formaPagamento,
                                       Uri urlRetorno, RequisicaoNovaTransacaoAutorizar reqAutorizar, bool capturar)
         {
             var ret = new Retorno();
@@ -87,7 +78,7 @@ namespace Cielo
             return ret;
         }
 
-        public Retorno ConsultarTransacao(string tid)
+        public async Task<Retorno> ConsultarTransacao(string tid)
         {
             var ret = new Retorno();
 
@@ -117,7 +108,7 @@ namespace Cielo
             return ret;
         }
 
-        public Retorno AutorizarTransacao(string tid)
+        public async Task<Retorno> AutorizarTransacao(string tid)
         {
             var ret = new Retorno();
 
@@ -147,7 +138,7 @@ namespace Cielo
             return ret;
         }
 
-        public Retorno CancelarTransacao(string tid)
+        public async Task<Retorno> CancelarTransacao(string tid)
         {
             var ret = new Retorno();
 
@@ -177,12 +168,12 @@ namespace Cielo
             return ret;
         }
 
-        public Retorno CapturarTransacao(string tid)
+        public async Task<Retorno> CapturarTransacao(string tid)
         {
-            return CapturarTransacao(tid, -1, string.Empty);
+            return await CapturarTransacao(tid, -1, string.Empty);
         }
 
-        public Retorno CapturarTransacao(string tid, decimal valor, string anexo)
+        public async Task<Retorno> CapturarTransacao(string tid, decimal valor, string anexo)
         {
             var ret = new Retorno();
 
@@ -218,10 +209,6 @@ namespace Cielo
             return ret;
         }
 
-        #endregion
-
-        #region "Private Methods"
-
         private Retorno XmlToRetorno(string xml)
         {
             var ret = new Retorno();
@@ -255,6 +242,5 @@ namespace Cielo
             return http.Post(Endpoint.AbsoluteUri, string.Format("mensagem={0}", xml));
         }
 
-        #endregion
     }
 }
