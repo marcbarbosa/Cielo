@@ -4,13 +4,14 @@ using System.Diagnostics;
 using System.Xml.Serialization;
 using Cielo.Helpers;
 
+
 namespace Cielo.Messages
 {
     [SerializableAttribute()]
     [DebuggerStepThroughAttribute()]
     [DesignerCategoryAttribute("code")]
     [XmlTypeAttribute(Namespace = "http://ecommerce.cbmp.com.br")]
-    [XmlRootAttribute("requisicao-transacao", Namespace = "http://ecommerce.cbmp.com.br", IsNullable = false)]
+    [XmlRootAttribute("requisicao-autenticacao", Namespace = "http://ecommerce.cbmp.com.br", IsNullable = false)]
     public partial class RequisicaoNovaTransacao : Mensagem
     {
 
@@ -32,7 +33,7 @@ namespace Cielo.Messages
 
         private string binField;
 
-        
+
         [XmlElementAttribute("dados-ec")]
         public DadosEcAutenticacao dadosec
         {
@@ -46,7 +47,7 @@ namespace Cielo.Messages
             }
         }
 
-        
+
         [XmlElementAttribute("dados-portador")]
         public DadosCartao dadosportador
         {
@@ -60,7 +61,7 @@ namespace Cielo.Messages
             }
         }
 
-        
+
         [XmlElementAttribute("dados-pedido")]
         public DadosPedido dadospedido
         {
@@ -74,7 +75,7 @@ namespace Cielo.Messages
             }
         }
 
-        
+
         [XmlElementAttribute("forma-pagamento")]
         public FormaPagamento formapagamento
         {
@@ -88,7 +89,7 @@ namespace Cielo.Messages
             }
         }
 
-        
+
         [XmlElementAttribute("url-retorno")]
         public string urlretorno
         {
@@ -102,7 +103,7 @@ namespace Cielo.Messages
             }
         }
 
-        
+
         public RequisicaoNovaTransacaoAutorizar autorizar
         {
             get
@@ -115,7 +116,7 @@ namespace Cielo.Messages
             }
         }
 
-        
+
         public bool capturar
         {
             get
@@ -128,7 +129,7 @@ namespace Cielo.Messages
             }
         }
 
-        
+
         [XmlElementAttribute("campo-livre")]
         public string campolivre
         {
@@ -142,7 +143,7 @@ namespace Cielo.Messages
             }
         }
 
-        
+
         public string bin
         {
             get
@@ -155,7 +156,9 @@ namespace Cielo.Messages
             }
         }
     }
-    
+
+
+
     [SerializableAttribute()]
     [DebuggerStepThroughAttribute()]
     [DesignerCategoryAttribute("code")]
@@ -167,7 +170,7 @@ namespace Cielo.Messages
 
         private string codigopaisField;
 
-        
+
         public string nome
         {
             get
@@ -180,7 +183,7 @@ namespace Cielo.Messages
             }
         }
 
-        
+
         [XmlElementAttribute("codigo-pais")]
         public string codigopais
         {
@@ -194,8 +197,10 @@ namespace Cielo.Messages
             }
         }
     }
-    
+
+
     [XmlIncludeAttribute(typeof(DadosEcAutenticacao))]
+
     [SerializableAttribute()]
     [DebuggerStepThroughAttribute()]
     [DesignerCategoryAttribute("code")]
@@ -207,7 +212,7 @@ namespace Cielo.Messages
 
         private string chaveField;
 
-        
+
         public string numero
         {
             get
@@ -220,7 +225,7 @@ namespace Cielo.Messages
             }
         }
 
-        
+
         public string chave
         {
             get
@@ -234,8 +239,90 @@ namespace Cielo.Messages
         }
     }
 
+
+
+    [SerializableAttribute()]
+    [DebuggerStepThroughAttribute()]
+    [DesignerCategoryAttribute("code")]
+    [XmlTypeAttribute(Namespace = "http://ecommerce.cbmp.com.br")]
+    public partial class FormaPagamentoCelular
+    {
+
+        private string produtoField;
+
+        private int parcelasField;
+
+
+        public string produto
+        {
+            get
+            {
+                return this.produtoField;
+            }
+            set
+            {
+                this.produtoField = value;
+            }
+        }
+
+
+        public int parcelas
+        {
+            get
+            {
+                return this.parcelasField;
+            }
+            set
+            {
+                this.parcelasField = value;
+            }
+        }
+    }
+
+
+
+    [SerializableAttribute()]
+    [DebuggerStepThroughAttribute()]
+    [DesignerCategoryAttribute("code")]
+    [XmlTypeAttribute(Namespace = "http://ecommerce.cbmp.com.br")]
+    public partial class DadosCelular
+    {
+
+        private string dddField;
+
+        private string numeroField;
+
+
+        public string ddd
+        {
+            get
+            {
+                return this.dddField;
+            }
+            set
+            {
+                this.dddField = value;
+            }
+        }
+
+
+        public string numero
+        {
+            get
+            {
+                return this.numeroField;
+            }
+            set
+            {
+                this.numeroField = value;
+            }
+        }
+    }
+
+
     [XmlIncludeAttribute(typeof(ProcessamentoAutorizacao))]
     [XmlIncludeAttribute(typeof(ProcessamentoAutenticacao))]
+
     [SerializableAttribute()]
     [DebuggerStepThroughAttribute()]
     [DesignerCategoryAttribute("code")]
@@ -251,7 +338,7 @@ namespace Cielo.Messages
 
         private string valorField;
 
-        
+
         public Status codigo
         {
             get
@@ -264,7 +351,7 @@ namespace Cielo.Messages
             }
         }
 
-        
+
         public string mensagem
         {
             get
@@ -277,7 +364,7 @@ namespace Cielo.Messages
             }
         }
 
-        
+
         [XmlElementAttribute("data-hora")]
         public System.DateTime datahora
         {
@@ -291,7 +378,7 @@ namespace Cielo.Messages
             }
         }
 
-        
+
         public string valor
         {
             get
@@ -304,7 +391,9 @@ namespace Cielo.Messages
             }
         }
     }
-    
+
+
+
     [SerializableAttribute()]
     [XmlTypeAttribute(Namespace = "http://ecommerce.cbmp.com.br")]
     public enum Status
@@ -315,31 +404,38 @@ namespace Cielo.Messages
         [XmlEnumAttribute("1")]
         EmAndamento = 1,
 
+
         [XmlEnumAttribute("2")]
         Autenticada = 2,
+
 
         [XmlEnumAttribute("3")]
         NaoAutenticada = 3,
 
+
         [XmlEnumAttribute("4")]
-        AutorizadaOuPendenteDeCaptura = 4,
+        Autorizada = 4,
+
 
         [XmlEnumAttribute("5")]
-        NaoAutorizada = 5,
+        NaoAutorizada,
+
 
         [XmlEnumAttribute("6")]
-        Capturada = 6,
-
-        [XmlEnumAttribute("8")]
-        NaoCapturada = 8,
+        Capturada,
 
         [XmlEnumAttribute("9")]
         Cancelada = 9,
 
         [XmlEnumAttribute("10")]
         EmAutenticacao = 10,
+
+        [XmlEnumAttribute("12")]
+        EmCancelamento = 12,
     }
-    
+
+
+
     [SerializableAttribute()]
     [DebuggerStepThroughAttribute()]
     [DesignerCategoryAttribute("code")]
@@ -351,7 +447,9 @@ namespace Cielo.Messages
 
         private string arpField;
 
-        
+        private string nsuField;
+
+
         public string lr
         {
             get
@@ -364,7 +462,7 @@ namespace Cielo.Messages
             }
         }
 
-        
+
         public string arp
         {
             get
@@ -376,7 +474,22 @@ namespace Cielo.Messages
                 this.arpField = value;
             }
         }
+
+
+        public string nsu
+        {
+            get
+            {
+                return this.nsuField;
+            }
+            set
+            {
+                this.nsuField = value;
+            }
+        }
     }
+
+
 
     [SerializableAttribute()]
     [DebuggerStepThroughAttribute()]
@@ -384,7 +497,11 @@ namespace Cielo.Messages
     [XmlTypeAttribute(Namespace = "http://ecommerce.cbmp.com.br")]
     public partial class ProcessamentoAutenticacao : Processamento
     {
+
         private int eciField;
+
+        private bool eciFieldSpecified;
+
 
         public int eci
         {
@@ -397,7 +514,23 @@ namespace Cielo.Messages
                 this.eciField = value;
             }
         }
+
+
+        [XmlIgnoreAttribute()]
+        public bool eciSpecified
+        {
+            get
+            {
+                return this.eciFieldSpecified;
+            }
+            set
+            {
+                this.eciFieldSpecified = value;
+            }
+        }
     }
+
+
 
     [SerializableAttribute()]
     [DebuggerStepThroughAttribute()]
@@ -406,14 +539,16 @@ namespace Cielo.Messages
     public partial class FormaPagamento
     {
 
-        private Bandeira bandeiraField;
+        private FormaPagamentoBandeira bandeiraField;
+
+        private bool bandeiraFieldSpecified;
 
         private FormaPagamentoProduto produtoField;
 
         private int parcelasField;
 
-        
-        public Bandeira bandeira
+
+        public FormaPagamentoBandeira bandeira
         {
             get
             {
@@ -425,7 +560,21 @@ namespace Cielo.Messages
             }
         }
 
-        
+
+        [XmlIgnoreAttribute()]
+        public bool bandeiraSpecified
+        {
+            get
+            {
+                return this.bandeiraFieldSpecified;
+            }
+            set
+            {
+                this.bandeiraFieldSpecified = value;
+            }
+        }
+
+
         public FormaPagamentoProduto produto
         {
             get
@@ -438,7 +587,7 @@ namespace Cielo.Messages
             }
         }
 
-        
+
         public int parcelas
         {
             get
@@ -452,6 +601,7 @@ namespace Cielo.Messages
         }
     }
 
+
     [SerializableAttribute()]
     [XmlTypeAttribute()]
     public enum FormaPagamentoProduto
@@ -462,28 +612,38 @@ namespace Cielo.Messages
         [XmlEnumAttribute("2")]
         ParceladoLoja = 2,
 
-        [XmlEnumAttribute("3")]
-        ParceladoAdministradora = 3,
-
         [XmlEnumAttribute("A")]
         Debito = 4
     }
 
+
     [SerializableAttribute()]
     [XmlTypeAttribute(AnonymousType = true, Namespace = "http://ecommerce.cbmp.com.br")]
-    public enum Bandeira
+    public enum FormaPagamentoBandeira
     {
 
         [XmlEnumAttribute("visa")]
-        Visa = 1,
+        Visa,
 
         [XmlEnumAttribute("mastercard")]
-        Mastercard = 2,
+        Mastercard,
 
         [XmlEnumAttribute("elo")]
-        Elo = 3,
+        Elo,
+
+
+        [XmlEnumAttribute("diners")]
+        Diners,
+
+        [XmlEnumAttribute("discover")]
+        Discover,
+
+        [XmlEnumAttribute("amex")]
+        Amex,
     }
-    
+
+
+
     [SerializableAttribute()]
     [DebuggerStepThroughAttribute()]
     [DesignerCategoryAttribute("code")]
@@ -491,7 +651,7 @@ namespace Cielo.Messages
     public partial class DadosPedido
     {
         public DadosPedido()
-        { 
+        {
         }
 
         public DadosPedido(string numero, decimal valor, string descricao)
@@ -510,13 +670,15 @@ namespace Cielo.Messages
 
         private Moeda moedaField;
 
-        private System.DateTime datahoraField;
+        private DateTime datahoraField;
 
         private string descricaoField;
 
         private Idioma idiomaField;
 
-        
+        private bool idiomaFieldSpecified;
+
+
         public string numero
         {
             get
@@ -529,7 +691,7 @@ namespace Cielo.Messages
             }
         }
 
-        
+
         public int valor
         {
             get
@@ -542,7 +704,7 @@ namespace Cielo.Messages
             }
         }
 
-        
+
         public Moeda moeda
         {
             get
@@ -555,9 +717,9 @@ namespace Cielo.Messages
             }
         }
 
-        
+
         [XmlElementAttribute("data-hora")]
-        public System.DateTime datahora
+        public DateTime datahora
         {
             get
             {
@@ -569,7 +731,7 @@ namespace Cielo.Messages
             }
         }
 
-        
+
         public string descricao
         {
             get
@@ -582,7 +744,7 @@ namespace Cielo.Messages
             }
         }
 
-        
+
         public Idioma idioma
         {
             get
@@ -595,7 +757,21 @@ namespace Cielo.Messages
             }
         }
 
+
+        [XmlIgnoreAttribute()]
+        public bool idiomaSpecified
+        {
+            get
+            {
+                return this.idiomaFieldSpecified;
+            }
+            set
+            {
+                this.idiomaFieldSpecified = value;
+            }
+        }
     }
+
 
     [SerializableAttribute()]
     [XmlTypeAttribute()]
@@ -611,15 +787,20 @@ namespace Cielo.Messages
         Euro
     }
 
+
     [SerializableAttribute()]
     [XmlTypeAttribute(Namespace = "http://ecommerce.cbmp.com.br")]
     public enum Idioma
     {
         PT,
+
         EN,
+
         ES,
     }
-    
+
+
+
     [SerializableAttribute()]
     [DebuggerStepThroughAttribute()]
     [DesignerCategoryAttribute("code")]
@@ -637,7 +818,7 @@ namespace Cielo.Messages
 
         private string nomeportadorField;
 
-        
+
         public string numero
         {
             get
@@ -650,7 +831,7 @@ namespace Cielo.Messages
             }
         }
 
-        
+
         public string validade
         {
             get
@@ -663,7 +844,7 @@ namespace Cielo.Messages
             }
         }
 
-        
+
         public DadosCartaoIndicador indicador
         {
             get
@@ -676,7 +857,7 @@ namespace Cielo.Messages
             }
         }
 
-        
+
         [XmlElementAttribute("codigo-seguranca")]
         public string codigoseguranca
         {
@@ -690,7 +871,7 @@ namespace Cielo.Messages
             }
         }
 
-        
+
         [XmlElementAttribute("nome-portador")]
         public string nomeportador
         {
@@ -705,31 +886,36 @@ namespace Cielo.Messages
         }
     }
 
+
+
     [SerializableAttribute()]
     [XmlTypeAttribute(AnonymousType = true, Namespace = "http://ecommerce.cbmp.com.br")]
     public enum DadosCartaoIndicador
     {
 
-        
+
         [XmlEnumAttribute("0")]
-        Item0,
+        NaoInformado = 0,
 
-        
+
         [XmlEnumAttribute("1")]
-        Item1,
+        Informado = 1,
 
-        
+
         [XmlEnumAttribute("2")]
-        Item2,
+        Ilegivel = 2,
 
-        
+
         [XmlEnumAttribute("9")]
-        Item9,
+        Inexistente = 9,
     }
 
+
+    [XmlIncludeAttribute(typeof(RequisicaoNovaTransacaoCelular))]
     [XmlIncludeAttribute(typeof(RetornoTid))]
     [XmlIncludeAttribute(typeof(RequisicaoTid))]
-    [XmlIncludeAttribute(typeof(RetornoTransacao))]
+    [XmlIncludeAttribute(typeof(Retorno))]
+    [XmlIncludeAttribute(typeof(RequisicaoConsultaChSec))]
     [XmlIncludeAttribute(typeof(Requisicao))]
     [XmlIncludeAttribute(typeof(RequisicaoAutorizacaoPortador))]
     [XmlIncludeAttribute(typeof(RequisicaoAutorizacaoTid))]
@@ -737,15 +923,19 @@ namespace Cielo.Messages
     [XmlIncludeAttribute(typeof(RequisicaoCancelamento))]
     [XmlIncludeAttribute(typeof(RequisicaoCaptura))]
     [XmlIncludeAttribute(typeof(RequisicaoNovaTransacao))]
+
     [SerializableAttribute()]
     [DebuggerStepThroughAttribute()]
     [DesignerCategoryAttribute("code")]
     [XmlTypeAttribute(Namespace = "http://ecommerce.cbmp.com.br")]
     public partial class Mensagem
     {
+
         private string idField;
+
         private MensagemVersao versaoField;
-        
+
+
         [XmlAttributeAttribute()]
         public string id
         {
@@ -758,7 +948,8 @@ namespace Cielo.Messages
                 this.idField = value;
             }
         }
-        
+
+
         [XmlAttributeAttribute()]
         public MensagemVersao versao
         {
@@ -771,38 +962,46 @@ namespace Cielo.Messages
                 this.versaoField = value;
             }
         }
-
-        [XmlIgnoreAttribute()]
-        public string rawXml { get; set; }
     }
+
+
 
     [SerializableAttribute()]
     [XmlTypeAttribute(AnonymousType = true, Namespace = "http://ecommerce.cbmp.com.br")]
     public enum MensagemVersao
     {
 
-        
+
         [XmlEnumAttribute("1.0.0")]
         v100,
 
-        
+
         [XmlEnumAttribute("1.1.0")]
         v110,
+
+
+        [XmlEnumAttribute("1.1.1")]
+        v111,
     }
+
 
     [XmlIncludeAttribute(typeof(RequisicaoAutorizacaoPortador))]
     [XmlIncludeAttribute(typeof(RequisicaoAutorizacaoTid))]
     [XmlIncludeAttribute(typeof(RequisicaoConsulta))]
     [XmlIncludeAttribute(typeof(RequisicaoCancelamento))]
     [XmlIncludeAttribute(typeof(RequisicaoCaptura))]
+
     [SerializableAttribute()]
     [DebuggerStepThroughAttribute()]
     [DesignerCategoryAttribute("code")]
     [XmlTypeAttribute(Namespace = "http://ecommerce.cbmp.com.br")]
     public partial class Requisicao : Mensagem
     {
+
         private string tidField;
+
         private DadosEc dadosecField;
+
 
         public string tid
         {
@@ -815,7 +1014,8 @@ namespace Cielo.Messages
                 this.tidField = value;
             }
         }
-        
+
+
         [XmlElementAttribute("dados-ec")]
         public DadosEc dadosec
         {
@@ -829,25 +1029,33 @@ namespace Cielo.Messages
             }
         }
     }
-    
+
+
+
     [SerializableAttribute()]
     [XmlTypeAttribute(AnonymousType = true, Namespace = "http://ecommerce.cbmp.com.br")]
     public enum RequisicaoNovaTransacaoAutorizar
     {
 
+
         [XmlEnumAttribute("0")]
-        NaoAutorizar = 1,
+        NaoAutorizar = 0,
+
 
         [XmlEnumAttribute("1")]
-        AutorizarSomenteSeAutenticada = 2,
+        AutorizarSomenteSeAutenticada = 1,
+
 
         [XmlEnumAttribute("2")]
-        AutorizarAutenticadaENaoAutenticada = 3,
+        AutorizarAutenticadaENaoAutenticada = 2,
+
 
         [XmlEnumAttribute("3")]
-        AutorizarSemPassarPorAutenticacao = 4,
+        AutorizarSemPassarPorAutenticacao = 3,
     }
-    
+
+
+
     [SerializableAttribute()]
     [DebuggerStepThroughAttribute()]
     [DesignerCategoryAttribute("code")]
@@ -866,7 +1074,7 @@ namespace Cielo.Messages
 
         private string campolivreField;
 
-        
+
         [XmlElementAttribute("dados-cartao")]
         public DadosCartao dadoscartao
         {
@@ -880,7 +1088,7 @@ namespace Cielo.Messages
             }
         }
 
-        
+
         [XmlElementAttribute("dados-pedido")]
         public DadosPedido dadospedido
         {
@@ -894,7 +1102,7 @@ namespace Cielo.Messages
             }
         }
 
-        
+
         [XmlElementAttribute("forma-pagamento")]
         public FormaPagamento formapagamento
         {
@@ -908,7 +1116,7 @@ namespace Cielo.Messages
             }
         }
 
-        
+
         [XmlElementAttribute("capturar-automaticamente")]
         public bool capturarautomaticamente
         {
@@ -922,7 +1130,7 @@ namespace Cielo.Messages
             }
         }
 
-        
+
         [XmlElementAttribute("campo-livre")]
         public string campolivre
         {
@@ -936,7 +1144,9 @@ namespace Cielo.Messages
             }
         }
     }
-    
+
+
+
     [SerializableAttribute()]
     [DebuggerStepThroughAttribute()]
     [DesignerCategoryAttribute("code")]
@@ -945,7 +1155,9 @@ namespace Cielo.Messages
     public partial class RequisicaoAutorizacaoTid : Requisicao
     {
     }
-    
+
+
+
     [SerializableAttribute()]
     [DebuggerStepThroughAttribute()]
     [DesignerCategoryAttribute("code")]
@@ -955,6 +1167,8 @@ namespace Cielo.Messages
     {
     }
 
+
+
     [SerializableAttribute()]
     [DebuggerStepThroughAttribute()]
     [DesignerCategoryAttribute("code")]
@@ -962,8 +1176,13 @@ namespace Cielo.Messages
     [XmlRootAttribute("requisicao-captura", Namespace = "http://ecommerce.cbmp.com.br", IsNullable = false)]
     public partial class RequisicaoCaptura : Requisicao
     {
+
         private int valorField;
+
+        private bool valorFieldSpecified;
+
         private string anexoField;
+
 
         public int valor
         {
@@ -976,7 +1195,22 @@ namespace Cielo.Messages
                 this.valorField = value;
             }
         }
-        
+
+
+        [XmlIgnoreAttribute()]
+        public bool valorSpecified
+        {
+            get
+            {
+                return this.valorFieldSpecified;
+            }
+            set
+            {
+                this.valorFieldSpecified = value;
+            }
+        }
+
+
         public string anexo
         {
             get
@@ -990,6 +1224,8 @@ namespace Cielo.Messages
         }
     }
 
+
+
     [SerializableAttribute()]
     [DebuggerStepThroughAttribute()]
     [DesignerCategoryAttribute("code")]
@@ -999,19 +1235,35 @@ namespace Cielo.Messages
     {
     }
 
+
+
     [SerializableAttribute()]
     [DebuggerStepThroughAttribute()]
     [DesignerCategoryAttribute("code")]
     [XmlTypeAttribute(Namespace = "http://ecommerce.cbmp.com.br")]
-    [XmlRootAttribute("requisicao-tid", Namespace = "http://ecommerce.cbmp.com.br", IsNullable = false)]
-    public partial class RequisicaoTid : Mensagem
+    [XmlRootAttribute("requisicao-consulta-chsec", Namespace = "http://ecommerce.cbmp.com.br", IsNullable = false)]
+    public partial class RequisicaoConsultaChSec : Mensagem
     {
+
+        private string numeropedidoField;
 
         private DadosEc dadosecField;
 
-        private FormaPagamento formapagamentoField;
 
-        
+        [XmlElementAttribute("numero-pedido")]
+        public string numeropedido
+        {
+            get
+            {
+                return this.numeropedidoField;
+            }
+            set
+            {
+                this.numeropedidoField = value;
+            }
+        }
+
+
         [XmlElementAttribute("dados-ec")]
         public DadosEc dadosec
         {
@@ -1024,45 +1276,9 @@ namespace Cielo.Messages
                 this.dadosecField = value;
             }
         }
-
-        
-        [XmlElementAttribute("forma-pagamento")]
-        public FormaPagamento formapagamento
-        {
-            get
-            {
-                return this.formapagamentoField;
-            }
-            set
-            {
-                this.formapagamentoField = value;
-            }
-        }
     }
 
-    [SerializableAttribute()]
-    [DebuggerStepThroughAttribute()]
-    [DesignerCategoryAttribute("code")]
-    [XmlTypeAttribute(Namespace = "http://ecommerce.cbmp.com.br")]
-    [XmlRootAttribute("retorno-tid", Namespace = "http://ecommerce.cbmp.com.br", IsNullable = false)]
-    public partial class RetornoTid : Mensagem
-    {
 
-        private string tidField;
-
-        
-        public string tid
-        {
-            get
-            {
-                return this.tidField;
-            }
-            set
-            {
-                this.tidField = value;
-            }
-        }
-    }
 
     [SerializableAttribute()]
     [DebuggerStepThroughAttribute()]
@@ -1224,7 +1440,13 @@ namespace Cielo.Messages
                 this.urlautenticacaoField = value;
             }
         }
+
+        [XmlIgnoreAttribute()]
+        public string rawXml { get; set; }
+
     }
+
+
 
     [SerializableAttribute()]
     [DebuggerStepThroughAttribute()]
@@ -1263,6 +1485,289 @@ namespace Cielo.Messages
                 this.mensagemField = value;
             }
         }
+
+        [XmlIgnoreAttribute()]
+        public string rawXml { get; set; }
+
+    }
+
+
+
+    [SerializableAttribute()]
+    [DebuggerStepThroughAttribute()]
+    [DesignerCategoryAttribute("code")]
+    [XmlTypeAttribute(Namespace = "http://ecommerce.cbmp.com.br")]
+    [XmlRootAttribute("requisicao-tid", Namespace = "http://ecommerce.cbmp.com.br", IsNullable = false)]
+    public partial class RequisicaoTid : Mensagem
+    {
+
+        private DadosEc dadosecField;
+
+        private FormaPagamento formapagamentoField;
+
+
+        [XmlElementAttribute("dados-ec")]
+        public DadosEc dadosec
+        {
+            get
+            {
+                return this.dadosecField;
+            }
+            set
+            {
+                this.dadosecField = value;
+            }
+        }
+
+
+        [XmlElementAttribute("forma-pagamento")]
+        public FormaPagamento formapagamento
+        {
+            get
+            {
+                return this.formapagamentoField;
+            }
+            set
+            {
+                this.formapagamentoField = value;
+            }
+        }
+    }
+
+
+
+    [SerializableAttribute()]
+    [DebuggerStepThroughAttribute()]
+    [DesignerCategoryAttribute("code")]
+    [XmlTypeAttribute(Namespace = "http://ecommerce.cbmp.com.br")]
+    [XmlRootAttribute("retorno-tid", Namespace = "http://ecommerce.cbmp.com.br", IsNullable = false)]
+    public partial class RetornoTid : Mensagem
+    {
+
+        private string tidField;
+
+
+        public string tid
+        {
+            get
+            {
+                return this.tidField;
+            }
+            set
+            {
+                this.tidField = value;
+            }
+        }
+    }
+
+
+
+    [SerializableAttribute()]
+    [DebuggerStepThroughAttribute()]
+    [DesignerCategoryAttribute("code")]
+    [XmlTypeAttribute(Namespace = "http://ecommerce.cbmp.com.br")]
+    [XmlRootAttribute("mensagem-info", Namespace = "http://ecommerce.cbmp.com.br", IsNullable = false)]
+    public partial class RequisicaoMensagemInfo
+    {
+
+        private string codigoField;
+
+        private string mensagemField;
+
+
+        public string codigo
+        {
+            get
+            {
+                return this.codigoField;
+            }
+            set
+            {
+                this.codigoField = value;
+            }
+        }
+
+
+        public string mensagem
+        {
+            get
+            {
+                return this.mensagemField;
+            }
+            set
+            {
+                this.mensagemField = value;
+            }
+        }
+    }
+
+
+
+    [SerializableAttribute()]
+    [DebuggerStepThroughAttribute()]
+    [DesignerCategoryAttribute("code")]
+    [XmlTypeAttribute(Namespace = "http://ecommerce.cbmp.com.br")]
+    [XmlRootAttribute("requisicao-nova-transacao-celular", Namespace = "http://ecommerce.cbmp.com.br", IsNullable = false)]
+    public partial class RequisicaoNovaTransacaoCelular : Mensagem
+    {
+
+        private DadosEcAutenticacao dadosecField;
+
+        private DadosCelular dadosportadorField;
+
+        private DadosPedido dadospedidoField;
+
+        private FormaPagamentoCelular formapagamentoField;
+
+        private string urlretornoField;
+
+        private bool capturarField;
+
+        private string campolivreField;
+
+        private bool gerartokenField;
+
+        private bool gerartokenFieldSpecified;
+
+        private string avsField;
+
+
+        [XmlElementAttribute("dados-ec")]
+        public DadosEcAutenticacao dadosec
+        {
+            get
+            {
+                return this.dadosecField;
+            }
+            set
+            {
+                this.dadosecField = value;
+            }
+        }
+
+
+        [XmlElementAttribute("dados-portador")]
+        public DadosCelular dadosportador
+        {
+            get
+            {
+                return this.dadosportadorField;
+            }
+            set
+            {
+                this.dadosportadorField = value;
+            }
+        }
+
+
+        [XmlElementAttribute("dados-pedido")]
+        public DadosPedido dadospedido
+        {
+            get
+            {
+                return this.dadospedidoField;
+            }
+            set
+            {
+                this.dadospedidoField = value;
+            }
+        }
+
+
+        [XmlElementAttribute("forma-pagamento")]
+        public FormaPagamentoCelular formapagamento
+        {
+            get
+            {
+                return this.formapagamentoField;
+            }
+            set
+            {
+                this.formapagamentoField = value;
+            }
+        }
+
+
+        [XmlElementAttribute("url-retorno")]
+        public string urlretorno
+        {
+            get
+            {
+                return this.urlretornoField;
+            }
+            set
+            {
+                this.urlretornoField = value;
+            }
+        }
+
+
+        public bool capturar
+        {
+            get
+            {
+                return this.capturarField;
+            }
+            set
+            {
+                this.capturarField = value;
+            }
+        }
+
+
+        [XmlElementAttribute("campo-livre")]
+        public string campolivre
+        {
+            get
+            {
+                return this.campolivreField;
+            }
+            set
+            {
+                this.campolivreField = value;
+            }
+        }
+
+
+        [XmlElementAttribute("gerar-token")]
+        public bool gerartoken
+        {
+            get
+            {
+                return this.gerartokenField;
+            }
+            set
+            {
+                this.gerartokenField = value;
+            }
+        }
+
+
+        [XmlIgnoreAttribute()]
+        public bool gerartokenSpecified
+        {
+            get
+            {
+                return this.gerartokenFieldSpecified;
+            }
+            set
+            {
+                this.gerartokenFieldSpecified = value;
+            }
+        }
+
+
+        public string avs
+        {
+            get
+            {
+                return this.avsField;
+            }
+            set
+            {
+                this.avsField = value;
+            }
+        }
     }
 
     public partial class Retorno
@@ -1281,5 +1786,4 @@ namespace Cielo.Messages
             return Erro != null;
         }
     }
-
 }

@@ -44,7 +44,7 @@ namespace Cielo
 
         #region "Public Methods"
 
-        public Retorno CriarTransacao(DadosPedido dadosPedido, Bandeira bandeira, Uri urlRetorno)
+        public Retorno CriarTransacao(DadosPedido dadosPedido, FormaPagamentoBandeira bandeira, Uri urlRetorno)
         {
             var dadosEc = new DadosEcAutenticacao { numero = Numero, chave = Chave };
             var formaPagamento = new FormaPagamento { bandeira = bandeira, parcelas = 1, produto = FormaPagamentoProduto.CreditoAVista };
@@ -241,6 +241,7 @@ namespace Cielo
                 {
                     erro = xml.ToType<RetornoErro>(Encoding.GetEncoding("iso-8859-1"));
                     ret.Erro = erro;
+                    ret.Erro.rawXml = xml;
                 }
             }
 
