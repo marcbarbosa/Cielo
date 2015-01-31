@@ -1445,10 +1445,6 @@ namespace Cielo.Messages
                 this.urlautenticacaoField = value;
             }
         }
-
-        [XmlIgnoreAttribute()]
-        public string rawXml { get; set; }
-
     }
 
 
@@ -1490,10 +1486,6 @@ namespace Cielo.Messages
                 this.mensagemField = value;
             }
         }
-
-        [XmlIgnoreAttribute()]
-        public string rawXml { get; set; }
-
     }
 
 
@@ -1777,9 +1769,16 @@ namespace Cielo.Messages
 
     public partial class Retorno
     {
+        public Retorno(string xml)
+        {
+            RawXml = xml;
+        }
+
         public RetornoTransacao Transacao { get; set; }
 
         public RetornoErro Erro { get; set; }
+
+        public string RawXml { get; set; }
 
         public bool IsTransacao()
         {
