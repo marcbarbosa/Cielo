@@ -1246,6 +1246,31 @@ namespace Cielo.Messages
     [DebuggerStepThroughAttribute()]
     [DesignerCategoryAttribute("code")]
     [XmlTypeAttribute(Namespace = "http://ecommerce.cbmp.com.br")]
+    [XmlRootAttribute("requisicao-token", Namespace = "http://ecommerce.cbmp.com.br", IsNullable = false)]
+    public partial class RequisicaoToken : Requisicao
+    {
+        private DadosCartao dadosPortadorField;
+
+        [XmlElementAttribute("dados-portador")]
+        public DadosCartao dadosPortador
+        {
+            get 
+            {
+                return this.dadosPortadorField;
+            }
+            set 
+            {
+                this.dadosPortadorField = value;
+            }
+        }
+    }
+
+
+
+    [SerializableAttribute()]
+    [DebuggerStepThroughAttribute()]
+    [DesignerCategoryAttribute("code")]
+    [XmlTypeAttribute(Namespace = "http://ecommerce.cbmp.com.br")]
     [XmlRootAttribute("requisicao-consulta-chsec", Namespace = "http://ecommerce.cbmp.com.br", IsNullable = false)]
     public partial class RequisicaoConsultaChSec : Mensagem
     {
