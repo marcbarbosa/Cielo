@@ -37,115 +37,52 @@ namespace Cielo
                 Endpoint = new Uri(ConfigurationManager.AppSettings["Cielo.UrlTeste"]);
         }
 
-        public async Task<Retorno> CriarTransacao(DadosPedido dadosPedido, FormaPagamentoBandeira bandeira, Uri urlRetorno)
+        public async Task<Retorno> Autorizacao(RequisicaoTransacao requisicaoTransacao)
         {
-            var dadosEc = new DadosEcAutenticacao { numero = Numero, chave = Chave };
-            var formaPagamento = new FormaPagamento { bandeira = bandeira, parcelas = 1, produto = FormaPagamentoProduto.CreditoAVista };
-            var req = RequisicaoTransacaoAutorizar.AutorizarAutenticadaENaoAutenticada;
-            var capturar = true;
-
-            return await CriarTransacao(dadosPedido, dadosEc, formaPagamento, urlRetorno, req, capturar);
+            return await EnviarMensagem(requisicaoTransacao);
         }
 
-        public async Task<Retorno> CriarTransacao(DadosPedido dadosPedido, DadosEcAutenticacao dadosEc, FormaPagamento formaPagamento,
-                                      Uri urlRetorno, RequisicaoTransacaoAutorizar reqAutorizar, bool capturar)
+        public async Task<Retorno> Autorizacao(RequisicaoAutorizacaoTid requisacaoAutorizacaoTid)
         {
-            var msg = new RequisicaoTransacao
-            {
-                id = dadosPedido.numero,
-                versao = MensagemVersao.v140,
-                dadosec = dadosEc,
-                dadospedido = dadosPedido,
-                formapagamento = formaPagamento,
-                urlretorno = urlRetorno.AbsoluteUri,
-                autorizar = reqAutorizar,
-                capturar = capturar
-            };
-
-            var xml = msg.ToXml<RequisicaoTransacao>(Encoding.GetEncoding("iso-8859-1"));
-
-            return await EnviarMensagem(xml);
+            return await EnviarMensagem(requisacaoAutorizacaoTid);
         }
 
-        public async Task<Retorno> ConsultarTransacao(string tid)
+        public async Task<Retorno> RenovaFacil()
         {
-            var dadosEc = new DadosEcAutenticacao { numero = Numero, chave = Chave };
-
-            var msg = new RequisicaoConsulta
-            {
-                id = DateTime.Now.ToString("yyyyMMdd"),
-                versao = MensagemVersao.v140,
-                tid = tid,
-                dadosec = dadosEc
-            };
-
-            var xml = msg.ToXml<RequisicaoConsulta>(Encoding.GetEncoding("iso-8859-1"));
-
-            return await EnviarMensagem(xml);
+            throw new NotImplementedException();
         }
 
-        public async Task<Retorno> AutorizarTransacao(string tid)
+        public async Task<Retorno> GeracaoToken(RequisicaoToken requisicaoToken)
         {
-            var dadosEc = new DadosEcAutenticacao { numero = Numero, chave = Chave };
-
-            var msg = new RequisicaoAutorizacaoTid
-            {
-                id = DateTime.Now.ToString("yyyyMMdd"),
-                versao = MensagemVersao.v140,
-                tid = tid,
-                dadosec = dadosEc
-            };
-
-            var xml = msg.ToXml<RequisicaoAutorizacaoTid>(Encoding.GetEncoding("iso-8859-1"));
-
-            return await EnviarMensagem(xml);
+            return await EnviarMensagem(requisicaoToken);
         }
 
-        public async Task<Retorno> CancelarTransacao(string tid)
+        public async Task<Retorno> Captura(RequisicaoCaptura requisicaoCaptura)
         {
-            var dadosEc = new DadosEcAutenticacao { numero = Numero, chave = Chave };
-
-            var msg = new RequisicaoCancelamento
-            {
-                id = DateTime.Now.ToString("yyyyMMdd"),
-                versao = MensagemVersao.v140,
-                tid = tid,
-                dadosec = dadosEc
-            };
-
-            var xml = msg.ToXml<RequisicaoCancelamento>(Encoding.GetEncoding("iso-8859-1"));
-
-            return await EnviarMensagem(xml);
+            return await EnviarMensagem<RequisicaoCaptura>(requisicaoCaptura);
         }
 
-        public async Task<Retorno> CapturarTransacao(string tid)
+        public async Task<Retorno> Consulta(RequisicaoConsulta requisicaoConsulta)
         {
-            return await CapturarTransacao(tid, -1, string.Empty);
+            return await EnviarMensagem(requisicaoConsulta);
         }
 
-        public async Task<Retorno> CapturarTransacao(string tid, decimal valor, string anexo)
+        public async Task<Retorno> Consulta(RequisicaoConsultaChSec requisicaoConsultaChSec)
         {
-            var dadosEc = new DadosEcAutenticacao { numero = Numero, chave = Chave };
-
-            var msg = new RequisicaoCaptura
-            {
-                id = DateTime.Now.ToString("yyyyMMdd"),
-                versao = MensagemVersao.v140,
-                tid = tid,
-                dadosec = dadosEc
-            };
-
-            if (valor > -1)
-                msg.valor = valor.ToFormatoCielo();
-
-            if (!string.IsNullOrWhiteSpace(anexo))
-                msg.anexo = anexo;
-
-            var xml = msg.ToXml<RequisicaoCaptura>(Encoding.GetEncoding("iso-8859-1"));
-
-            return await EnviarMensagem(xml);
+            return await EnviarMensagem(requisicaoConsultaChSec);
         }
 
+        public async Task<Retorno> Cancelamento(RequisicaoCancelamento requisicaoCancelamento)
+        {
+            return await EnviarMensagem(requisicaoCancelamento);
+        }
+
+        public async Task<Retorno> Cancelamento(RequisicaoCancelamentoParcial requisicaoCancelamentoParcial)
+        {
+            return await EnviarMensagem(requisicaoCancelamentoParcial);
+        }
+        
+        
         private Retorno XmlToRetorno(string xml)
         {
             var ret = new Retorno(xml);
@@ -154,6 +91,7 @@ namespace Cielo
             {
                 RetornoTransacao transacao;
                 RetornoErro erro;
+                RetornoToken token;
 
                 if (xml.Contains("</transacao>"))
                 {
@@ -165,14 +103,23 @@ namespace Cielo
                     erro = xml.ToType<RetornoErro>(Encoding.GetEncoding("iso-8859-1"));
                     ret.Erro = erro;
                 }
+                else if (xml.Contains("</retorno-token>"))
+                {
+                    token = xml.ToType<RetornoToken>(Encoding.GetEncoding("iso-8859-1"));
+                    ret.Token = token;
+                }
             }
 
             return ret;
         }
 
-        private async Task<Retorno> EnviarMensagem(string xml)
+        private async Task<Retorno> EnviarMensagem<T>(T mensagem)
         {
-            var contentPayload = new StringContent(string.Format("mensagem={0}", xml), Encoding.GetEncoding("iso-8859-1"), "application/x-www-form-urlencoded");
+            var encoding = Encoding.GetEncoding("ISO-8859-1");
+
+            var xml = mensagem.ToXml<T>(encoding);
+
+            var contentPayload = new StringContent(string.Format("mensagem={0}", xml), encoding, "application/x-www-form-urlencoded");
 
             var response = await new HttpClient().PostAsync(Endpoint.AbsoluteUri, contentPayload);
 

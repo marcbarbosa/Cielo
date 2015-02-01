@@ -1194,6 +1194,12 @@ namespace Cielo.Messages
                 this.dadosecField = value;
             }
         }
+
+
+        public Requisicao()
+        {
+            this.dadosecField = new DadosEc { chave = "", numero = "" };
+        }
     }
 
 
@@ -1202,11 +1208,8 @@ namespace Cielo.Messages
     [XmlTypeAttribute(AnonymousType = true, Namespace = "http://ecommerce.cbmp.com.br")]
     public enum RequisicaoTransacaoAutorizar
     {
-
-
         [XmlEnumAttribute("0")]
         NaoAutorizar = 0,
-
 
         [XmlEnumAttribute("1")]
         AutorizarSomenteSeAutenticada = 1,
@@ -1218,6 +1221,9 @@ namespace Cielo.Messages
 
         [XmlEnumAttribute("3")]
         AutorizarSemPassarPorAutenticacao = 3,
+
+        [XmlEnumAttribute("4")]
+        TransacaoRecorrente = 4,
     }
 
 
@@ -1233,11 +1239,11 @@ namespace Cielo.Messages
         [XmlElementAttribute("dados-avs")]
         public DadosAvs dadosavs
         {
-            get 
+            get
             {
                 return this.dadosavsField;
             }
-            set 
+            set
             {
                 this.dadosavsField = value;
             }
@@ -1363,6 +1369,31 @@ namespace Cielo.Messages
     [DebuggerStepThroughAttribute()]
     [DesignerCategoryAttribute("code")]
     [XmlTypeAttribute(Namespace = "http://ecommerce.cbmp.com.br")]
+    [XmlRootAttribute("requisicao-cancelamento", Namespace = "http://ecommerce.cbmp.com.br", IsNullable = false)]
+    public partial class RequisicaoCancelamentoParcial : RequisicaoCancelamento
+    {
+
+        private int valorField;
+
+        public int valor
+        {
+            get
+            {
+                return this.valorField;
+            }
+            set
+            {
+                this.valorField = value;
+            }
+        }
+    }
+
+
+
+    [SerializableAttribute()]
+    [DebuggerStepThroughAttribute()]
+    [DesignerCategoryAttribute("code")]
+    [XmlTypeAttribute(Namespace = "http://ecommerce.cbmp.com.br")]
     [XmlRootAttribute("requisicao-captura", Namespace = "http://ecommerce.cbmp.com.br", IsNullable = false)]
     public partial class RequisicaoCaptura : Requisicao
     {
@@ -1372,6 +1403,8 @@ namespace Cielo.Messages
         private bool valorFieldSpecified;
 
         private string anexoField;
+
+        private int taxaembarqueField;
 
 
         public int valor
@@ -1412,6 +1445,19 @@ namespace Cielo.Messages
                 this.anexoField = value;
             }
         }
+
+
+        public int taxaembarque
+        {
+            get
+            {
+                return this.taxaembarqueField;
+            }
+            set
+            {
+                this.taxaembarqueField = value;
+            }
+        }
     }
 
 
@@ -1439,11 +1485,11 @@ namespace Cielo.Messages
         [XmlElementAttribute("dados-portador")]
         public DadosPortador dadosPortador
         {
-            get 
+            get
             {
                 return this.dadosPortadorField;
             }
-            set 
+            set
             {
                 this.dadosPortadorField = value;
             }
@@ -1664,7 +1710,7 @@ namespace Cielo.Messages
     [DesignerCategoryAttribute("code")]
     [XmlTypeAttribute(Namespace = "http://ecommerce.cbmp.com.br")]
     [XmlRootAttribute("erro", Namespace = "http://ecommerce.cbmp.com.br", IsNullable = false)]
-    public partial class RetornoErro
+    public partial class RetornoErro : Mensagem
     {
 
         private string codigoField;
@@ -1696,6 +1742,126 @@ namespace Cielo.Messages
                 this.mensagemField = value;
             }
         }
+    }
+
+
+
+    [SerializableAttribute()]
+    [DebuggerStepThroughAttribute()]
+    [DesignerCategoryAttribute("code")]
+    [XmlTypeAttribute(Namespace = "http://ecommerce.cbmp.com.br")]
+    [XmlRootAttribute("retorno-token", Namespace = "http://ecommerce.cbmp.com.br", IsNullable = false)]
+    public partial class RetornoToken : Mensagem
+    {
+        private Token tokenField;
+
+        public Token token
+        {
+            get
+            {
+                return this.tokenField;
+            }
+            set
+            {
+                this.tokenField = value;
+            }
+        }
+    }
+
+
+
+    [SerializableAttribute()]
+    [DebuggerStepThroughAttribute()]
+    [DesignerCategoryAttribute("code")]
+    [XmlTypeAttribute(Namespace = "http://ecommerce.cbmp.com.br")]
+    public partial class Token
+    {
+
+        private DadosToken dadostokenField;
+
+
+        [XmlElementAttribute("dados-token")]
+        public DadosToken dadostoken
+        {
+            get
+            {
+                return this.dadostokenField;
+            }
+            set
+            {
+                this.dadostokenField = value;
+            }
+        }
+    }
+
+
+
+    [SerializableAttribute()]
+    [DebuggerStepThroughAttribute()]
+    [DesignerCategoryAttribute("code")]
+    [XmlTypeAttribute(Namespace = "http://ecommerce.cbmp.com.br")]
+    public partial class DadosToken
+    {
+        private string codigotokenField;
+
+        private TokenStatus statusField;
+
+        private string numerocartaotruncadoField;
+
+
+        [XmlElementAttribute("codigo-token")]
+        public string codigotoken
+        {
+            get
+            {
+                return this.codigotokenField;
+            }
+            set
+            {
+                this.codigotokenField = value;
+            }
+        }
+
+
+        public TokenStatus status
+        {
+            get
+            {
+                return this.statusField;
+            }
+            set
+            {
+                this.statusField = value;
+            }
+        }
+
+
+        [XmlElementAttribute("numero-cartao-truncado")]
+        public string numerocartaotruncado
+        {
+            get
+            {
+                return this.numerocartaotruncadoField;
+            }
+            set
+            {
+                this.numerocartaotruncadoField = value;
+            }
+        }
+    }
+
+
+
+    [SerializableAttribute()]
+    [XmlTypeAttribute(AnonymousType = true, Namespace = "http://ecommerce.cbmp.com.br")]
+    public enum TokenStatus
+    {
+
+        [XmlEnumAttribute("0")]
+        Bloqueado,
+
+        [XmlEnumAttribute("1")]
+        Desbloqueado,
     }
 
 
@@ -1990,6 +2156,8 @@ namespace Cielo.Messages
 
         public RetornoErro Erro { get; set; }
 
+        public RetornoToken Token { get; set; }
+
         public string RawXml { get; set; }
 
         public bool IsTransacao()
@@ -2000,6 +2168,11 @@ namespace Cielo.Messages
         public bool IsErro()
         {
             return Erro != null;
+        }
+
+        public bool IsToken()
+        {
+            return Token != null;
         }
     }
 }
