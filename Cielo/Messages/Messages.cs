@@ -1979,6 +1979,8 @@ namespace Cielo.Messages
 
     public partial class Retorno
     {
+        public Retorno() { }
+
         public Retorno(string xml)
         {
             RawXml = xml;

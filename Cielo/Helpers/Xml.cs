@@ -8,88 +8,52 @@ namespace Cielo.Helpers
 {
     public static class Xml
     {
-        /// <summary>
-        /// Serializa um objeto do tipo T
-        /// </summary>
-        /// <typeparam name="T">Tipo do objeto</typeparam>
-        /// <param name="obj">Objeto a ser serializado</param>
-        /// <returns>String XML com o objeto serializado</returns>
         public static string ToXml<T>(this T obj)
         {
             return ToXml<T>(obj, UTF8Encoding.UTF8);
         }
 
-        /// <summary>
-        /// Serializa um objeto do tipo T
-        /// </summary>
-        /// <typeparam name="T">Tipo do objeto</typeparam>
-        /// <param name="obj">Objeto a ser serializado</param>
-        /// <param name="encoding">Encoding</param>
-        /// <returns>String XML com o objeto serializado</returns>
         public static string ToXml<T>(this T obj, Encoding encoding)
         {
-            string ret = string.Empty;
-
-            try
+            if (obj == null)
             {
-                var xs = new XmlSerializer(typeof(T));
-                var ms = new MemoryStream();
-                var xw = new XmlTextWriter(ms, encoding);
-
-                xs.Serialize(xw, obj);
-
-                ms.Close();
-                xw.Close();
-
-                ret = encoding.GetString(ms.ToArray());
-            }
-            catch (Exception ex)
-            {
-                throw ex;
+                return null;
             }
 
-            return ret;
+            var xs = new XmlSerializer(typeof(T));
+
+            using (var ms = new MemoryStream())
+            {
+                using (var xw = new XmlTextWriter(ms, encoding))
+                {
+                    xs.Serialize(xw, obj);
+
+                    return encoding.GetString(ms.ToArray());
+                }
+            }
         }
 
-        /// <summary>
-        /// Deserializa uma string XML para um objeto do tipo T
-        /// </summary>
-        /// <typeparam name="T">Tipo do objeto</typeparam>
-        /// <param name="strXml">String XML</param>
-        /// <returns></returns>
         public static T ToType<T>(this string strXml)
         {
             return ToType<T>(strXml, UTF8Encoding.UTF8);
         }
 
-        /// <summary>
-        /// Deserializa uma string XML para um objeto do tipo T
-        /// </summary>
-        /// <typeparam name="T">Tipo do objeto</typeparam>
-        /// <param name="strXml">String XML</param>
-        /// <param name="encoding">Encoding</param>
-        /// <returns></returns>
         public static T ToType<T>(this string strXml, Encoding encoding)
         {
-            var ret = Activator.CreateInstance<T>();
-
-            try
+            if (string.IsNullOrWhiteSpace(strXml))
             {
-                var xs = new XmlSerializer(typeof(T));
-                var ms = new MemoryStream(encoding.GetBytes(strXml));
-                var xw = new XmlTextReader(ms);
-
-                ret = (T)xs.Deserialize(xw);
-
-                ms.Close();
-                xw.Close();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
+                return default(T);
             }
 
-            return ret;
+            var xs = new XmlSerializer(typeof(T));
+
+            using (var ms = new MemoryStream(encoding.GetBytes(strXml)))
+            {
+                using (var xw = new XmlTextReader(ms))
+                {
+                    return (T)xs.Deserialize(xw);
+                }
+            }
         }
 
     }
