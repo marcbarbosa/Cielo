@@ -11,13 +11,13 @@ namespace Cielo.Messages
     [DebuggerStepThroughAttribute()]
     [DesignerCategoryAttribute("code")]
     [XmlTypeAttribute(Namespace = "http://ecommerce.cbmp.com.br")]
-    [XmlRootAttribute("requisicao-autenticacao", Namespace = "http://ecommerce.cbmp.com.br", IsNullable = false)]
-    public partial class RequisicaoNovaTransacao : Mensagem
+    [XmlRootAttribute("requisicao-transacao", Namespace = "http://ecommerce.cbmp.com.br", IsNullable = false)]
+    public partial class RequisicaoTransacao : Mensagem
     {
 
-        private DadosEcAutenticacao dadosecField;
+        private DadosEc dadosecField;
 
-        private DadosCartao dadosportadorField;
+        private DadosPortador dadosportadorField;
 
         private DadosPedido dadospedidoField;
 
@@ -25,7 +25,7 @@ namespace Cielo.Messages
 
         private string urlretornoField;
 
-        private RequisicaoNovaTransacaoAutorizar autorizarField;
+        private RequisicaoTransacaoAutorizar autorizarField;
 
         private bool capturarField;
 
@@ -33,9 +33,13 @@ namespace Cielo.Messages
 
         private string binField;
 
+        private bool gerartokenField;
+
+        private RequisicaoTransacaoAvs avsField;
+
 
         [XmlElementAttribute("dados-ec")]
-        public DadosEcAutenticacao dadosec
+        public DadosEc dadosec
         {
             get
             {
@@ -49,7 +53,7 @@ namespace Cielo.Messages
 
 
         [XmlElementAttribute("dados-portador")]
-        public DadosCartao dadosportador
+        public DadosPortador dadosportador
         {
             get
             {
@@ -104,7 +108,7 @@ namespace Cielo.Messages
         }
 
 
-        public RequisicaoNovaTransacaoAutorizar autorizar
+        public RequisicaoTransacaoAutorizar autorizar
         {
             get
             {
@@ -153,6 +157,31 @@ namespace Cielo.Messages
             set
             {
                 this.binField = value;
+            }
+        }
+
+
+        public bool gerartoken
+        {
+            get
+            {
+                return this.gerartokenField;
+            }
+            set
+            {
+                this.gerartokenField = value;
+            }
+        }
+
+        public RequisicaoTransacaoAvs avs
+        {
+            get
+            {
+                return this.avsField;
+            }
+            set
+            {
+                this.avsField = value;
             }
         }
     }
@@ -235,6 +264,91 @@ namespace Cielo.Messages
             set
             {
                 this.chaveField = value;
+            }
+        }
+    }
+
+
+
+    [SerializableAttribute()]
+    [DebuggerStepThroughAttribute()]
+    [DesignerCategoryAttribute("code")]
+    [XmlTypeAttribute(Namespace = "http://ecommerce.cbmp.com.br")]
+    public partial class DadosAvs
+    {
+
+        private string enderecoField;
+
+        private string complementoField;
+
+        private string numeroField;
+
+        private string bairroField;
+
+        private string cepField;
+
+
+        public string endereco
+        {
+            get
+            {
+                return this.enderecoField;
+            }
+            set
+            {
+                this.enderecoField = value;
+            }
+        }
+
+
+        public string complemento
+        {
+            get
+            {
+                return this.complementoField;
+            }
+            set
+            {
+                this.complementoField = value;
+            }
+        }
+
+
+        public string numero
+        {
+            get
+            {
+                return this.numeroField;
+            }
+            set
+            {
+                this.numeroField = value;
+            }
+        }
+
+
+        public string bairro
+        {
+            get
+            {
+                return this.bairroField;
+            }
+            set
+            {
+                this.bairroField = value;
+            }
+        }
+
+
+        public string cep
+        {
+            get
+            {
+                return this.cepField;
+            }
+            set
+            {
+                this.cepField = value;
             }
         }
     }
@@ -678,6 +792,10 @@ namespace Cielo.Messages
 
         private bool idiomaFieldSpecified;
 
+        private string softdescriptorField;
+
+        private int taxaembarqueField;
+
 
         public string numero
         {
@@ -770,6 +888,34 @@ namespace Cielo.Messages
                 this.idiomaFieldSpecified = value;
             }
         }
+
+
+        [XmlElementAttribute("soft-descriptor")]
+        public string softdescriptor
+        {
+            get
+            {
+                return this.softdescriptorField;
+            }
+            set
+            {
+                this.softdescriptorField = value;
+            }
+        }
+
+
+        [XmlElementAttribute("taxa-embarque")]
+        public int taxaembarque
+        {
+            get
+            {
+                return this.taxaembarqueField;
+            }
+            set
+            {
+                this.taxaembarqueField = value;
+            }
+        }
     }
 
 
@@ -805,7 +951,7 @@ namespace Cielo.Messages
     [DebuggerStepThroughAttribute()]
     [DesignerCategoryAttribute("code")]
     [XmlTypeAttribute(Namespace = "http://ecommerce.cbmp.com.br")]
-    public partial class DadosCartao
+    public partial class DadosPortador
     {
 
         private string numeroField;
@@ -817,6 +963,8 @@ namespace Cielo.Messages
         private string codigosegurancaField;
 
         private string nomeportadorField;
+
+        private string tokenField;
 
 
         public string numero
@@ -884,6 +1032,18 @@ namespace Cielo.Messages
                 this.nomeportadorField = value;
             }
         }
+
+        public string token
+        {
+            get
+            {
+                return this.tokenField;
+            }
+            set
+            {
+                this.tokenField = value;
+            }
+        }
     }
 
 
@@ -922,7 +1082,8 @@ namespace Cielo.Messages
     [XmlIncludeAttribute(typeof(RequisicaoConsulta))]
     [XmlIncludeAttribute(typeof(RequisicaoCancelamento))]
     [XmlIncludeAttribute(typeof(RequisicaoCaptura))]
-    [XmlIncludeAttribute(typeof(RequisicaoNovaTransacao))]
+    [XmlIncludeAttribute(typeof(RequisicaoTransacao))]
+    [XmlIncludeAttribute(typeof(RequisicaoToken))]
 
     [SerializableAttribute()]
     [DebuggerStepThroughAttribute()]
@@ -1039,7 +1200,7 @@ namespace Cielo.Messages
 
     [SerializableAttribute()]
     [XmlTypeAttribute(AnonymousType = true, Namespace = "http://ecommerce.cbmp.com.br")]
-    public enum RequisicaoNovaTransacaoAutorizar
+    public enum RequisicaoTransacaoAutorizar
     {
 
 
@@ -1065,11 +1226,35 @@ namespace Cielo.Messages
     [DebuggerStepThroughAttribute()]
     [DesignerCategoryAttribute("code")]
     [XmlTypeAttribute(Namespace = "http://ecommerce.cbmp.com.br")]
+    public partial class RequisicaoTransacaoAvs
+    {
+        private DadosAvs dadosavsField;
+
+        [XmlElementAttribute("dados-avs")]
+        public DadosAvs dadosavs
+        {
+            get 
+            {
+                return this.dadosavsField;
+            }
+            set 
+            {
+                this.dadosavsField = value;
+            }
+        }
+    }
+
+
+
+    [SerializableAttribute()]
+    [DebuggerStepThroughAttribute()]
+    [DesignerCategoryAttribute("code")]
+    [XmlTypeAttribute(Namespace = "http://ecommerce.cbmp.com.br")]
     [XmlRootAttribute("requisicao-autorizacao-portador", Namespace = "http://ecommerce.cbmp.com.br", IsNullable = false)]
     public partial class RequisicaoAutorizacaoPortador : Requisicao
     {
 
-        private DadosCartao dadoscartaoField;
+        private DadosPortador dadoscartaoField;
 
         private DadosPedido dadospedidoField;
 
@@ -1081,7 +1266,7 @@ namespace Cielo.Messages
 
 
         [XmlElementAttribute("dados-cartao")]
-        public DadosCartao dadoscartao
+        public DadosPortador dadoscartao
         {
             get
             {
@@ -1249,10 +1434,10 @@ namespace Cielo.Messages
     [XmlRootAttribute("requisicao-token", Namespace = "http://ecommerce.cbmp.com.br", IsNullable = false)]
     public partial class RequisicaoToken : Requisicao
     {
-        private DadosCartao dadosPortadorField;
+        private DadosPortador dadosPortadorField;
 
         [XmlElementAttribute("dados-portador")]
-        public DadosCartao dadosPortador
+        public DadosPortador dadosPortador
         {
             get 
             {

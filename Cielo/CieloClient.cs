@@ -41,16 +41,16 @@ namespace Cielo
         {
             var dadosEc = new DadosEcAutenticacao { numero = Numero, chave = Chave };
             var formaPagamento = new FormaPagamento { bandeira = bandeira, parcelas = 1, produto = FormaPagamentoProduto.CreditoAVista };
-            var req = RequisicaoNovaTransacaoAutorizar.AutorizarAutenticadaENaoAutenticada;
+            var req = RequisicaoTransacaoAutorizar.AutorizarAutenticadaENaoAutenticada;
             var capturar = true;
 
             return await CriarTransacao(dadosPedido, dadosEc, formaPagamento, urlRetorno, req, capturar);
         }
 
         public async Task<Retorno> CriarTransacao(DadosPedido dadosPedido, DadosEcAutenticacao dadosEc, FormaPagamento formaPagamento,
-                                      Uri urlRetorno, RequisicaoNovaTransacaoAutorizar reqAutorizar, bool capturar)
+                                      Uri urlRetorno, RequisicaoTransacaoAutorizar reqAutorizar, bool capturar)
         {
-            var msg = new RequisicaoNovaTransacao
+            var msg = new RequisicaoTransacao
             {
                 id = dadosPedido.numero,
                 versao = MensagemVersao.v140,
@@ -62,7 +62,7 @@ namespace Cielo
                 capturar = capturar
             };
 
-            var xml = msg.ToXml<RequisicaoNovaTransacao>(Encoding.GetEncoding("iso-8859-1"));
+            var xml = msg.ToXml<RequisicaoTransacao>(Encoding.GetEncoding("iso-8859-1"));
 
             return await EnviarMensagem(xml);
         }

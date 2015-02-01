@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Cielo
 {
-    interface ICieloClient
+    public interface ICieloClient
     {
         Task<Retorno> AutorizarTransacao(string tid);
         
@@ -16,7 +16,7 @@ namespace Cielo
         
         Task<Retorno> ConsultarTransacao(string tid);
         
-        Task<Retorno> CriarTransacao(DadosPedido dadosPedido, DadosEcAutenticacao dadosEc, FormaPagamento formaPagamento, Uri urlRetorno, RequisicaoNovaTransacaoAutorizar reqAutorizar, bool capturar);
+        Task<Retorno> CriarTransacao(DadosPedido dadosPedido, DadosEcAutenticacao dadosEc, FormaPagamento formaPagamento, Uri urlRetorno, RequisicaoTransacaoAutorizar reqAutorizar, bool capturar);
         
         Task<Retorno> CriarTransacao(DadosPedido dadosPedido, FormaPagamentoBandeira bandeira, Uri urlRetorno);
     }
