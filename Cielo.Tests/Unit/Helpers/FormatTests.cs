@@ -37,6 +37,20 @@ namespace Cielo.Tests.Unit.Helpers
                 // assert
                 Assert.Equal(expected, actual);
             }
+
+            [Fact]
+            public void Returns0Point04Given43()
+            {
+                // arrange
+                var input = "4";
+                var expected = 0.04m;
+
+                //act
+                var actual = input.FromFormatoCielo();
+
+                // assert
+                Assert.Equal(expected, actual);
+            }
         }
     }
 }

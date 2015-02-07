@@ -1,24 +1,37 @@
 ﻿
 using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace Cielo.Helpers
 {
     public static class Format
     {
+        private static Regex digitsOnly = new Regex(@"[^\d]");
+
         public static int ToFormatoCielo(this decimal valor)
         {
-            var decimalSeparator = CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator;
-
-            return int.Parse(valor.ToString("N").Replace(decimalSeparator, string.Empty));
+            return int.Parse(digitsOnly.Replace(valor.ToString("N"), string.Empty));
         }
 
         public static decimal FromFormatoCielo(this string valor)
         {
-            var decimalSeparator = CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator;
+            valor = digitsOnly.Replace(valor, string.Empty);
 
-            var s = valor.Insert(valor.Length - 2, decimalSeparator);
+            if (!string.IsNullOrWhiteSpace(valor))
+            {
+                var decimalSeparator = CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator;
 
-            return decimal.Parse(s);
+                if (valor.Length == 1)
+                {
+                    valor = string.Concat("0", valor);
+                }
+
+                var s = valor.Insert(valor.Length - 2, decimalSeparator);
+
+                return decimal.Parse(s);
+            }
+
+            return 0m;
         }
     }
 }
