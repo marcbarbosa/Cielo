@@ -1,16 +1,22 @@
 ﻿
+using System.Globalization;
+
 namespace Cielo.Helpers
 {
     public static class Format
     {
         public static int ToFormatoCielo(this decimal valor)
         {
-            return int.Parse(valor.ToString("N").Replace(",", string.Empty).Replace(".", string.Empty));
+            var decimalSeparator = CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator;
+
+            return int.Parse(valor.ToString("N").Replace(decimalSeparator, string.Empty));
         }
 
         public static decimal FromFormatoCielo(this string valor)
         {
-            var s = valor.Insert(valor.Length - 2, ",");
+            var decimalSeparator = CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator;
+
+            var s = valor.Insert(valor.Length - 2, decimalSeparator);
 
             return decimal.Parse(s);
         }
