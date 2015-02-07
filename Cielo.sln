@@ -5,7 +5,7 @@ VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cielo", "Cielo\Cielo.csproj", "{9529C9AD-E565-43EF-B95E-371172BD19CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cielo.Facts", "Cielo.Facts\Cielo.Facts.csproj", "{A276D8C7-A16A-4782-BD97-D489E6BE64CE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cielo.Tests", "Cielo.Tests\Cielo.Tests.csproj", "{A276D8C7-A16A-4782-BD97-D489E6BE64CE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{BC79737B-E47F-4836-90E5-0D0175FC3E65}"
 	ProjectSection(SolutionItems) = preProject

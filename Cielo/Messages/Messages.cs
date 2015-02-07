@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Cielo.Helpers;
+using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Text;
 using System.Xml.Serialization;
-using Cielo.Helpers;
-
 
 namespace Cielo.Messages
 {
@@ -14,176 +14,38 @@ namespace Cielo.Messages
     [XmlRootAttribute("requisicao-transacao", Namespace = "http://ecommerce.cbmp.com.br", IsNullable = false)]
     public partial class RequisicaoTransacao : Mensagem
     {
-
-        private DadosEc dadosecField;
-
-        private DadosPortador dadosportadorField;
-
-        private DadosPedido dadospedidoField;
-
-        private FormaPagamento formapagamentoField;
-
-        private string urlretornoField;
-
-        private RequisicaoTransacaoAutorizar autorizarField;
-
-        private bool capturarField;
-
-        private string campolivreField;
-
-        private string binField;
-
-        private bool gerartokenField;
-
-        private RequisicaoTransacaoAvs avsField;
-
-
         [XmlElementAttribute("dados-ec")]
-        public DadosEc dadosec
-        {
-            get
-            {
-                return this.dadosecField;
-            }
-            set
-            {
-                this.dadosecField = value;
-            }
-        }
-
+        public DadosEc DadosEc { get; set; }
 
         [XmlElementAttribute("dados-portador")]
-        public DadosPortador dadosportador
-        {
-            get
-            {
-                return this.dadosportadorField;
-            }
-            set
-            {
-                this.dadosportadorField = value;
-            }
-        }
-
+        public DadosPortador DadosPortador { get; set; }
 
         [XmlElementAttribute("dados-pedido")]
-        public DadosPedido dadospedido
-        {
-            get
-            {
-                return this.dadospedidoField;
-            }
-            set
-            {
-                this.dadospedidoField = value;
-            }
-        }
-
+        public DadosPedido DadosPedido { get; set; }
 
         [XmlElementAttribute("forma-pagamento")]
-        public FormaPagamento formapagamento
-        {
-            get
-            {
-                return this.formapagamentoField;
-            }
-            set
-            {
-                this.formapagamentoField = value;
-            }
-        }
-
+        public FormaPagamento FormaPagamento { get; set; }
 
         [XmlElementAttribute("url-retorno")]
-        public string urlretorno
-        {
-            get
-            {
-                return this.urlretornoField;
-            }
-            set
-            {
-                this.urlretornoField = value;
-            }
-        }
+        public string UrlRetorno { get; set; }
 
+        [XmlElementAttribute("autorizar")]
+        public RequisicaoTransacaoAutorizar Autorizar { get; set; }
 
-        public RequisicaoTransacaoAutorizar autorizar
-        {
-            get
-            {
-                return this.autorizarField;
-            }
-            set
-            {
-                this.autorizarField = value;
-            }
-        }
-
-
-        public bool capturar
-        {
-            get
-            {
-                return this.capturarField;
-            }
-            set
-            {
-                this.capturarField = value;
-            }
-        }
-
+        [XmlElementAttribute("capturar")]
+        public bool Capturar { get; set; }
 
         [XmlElementAttribute("campo-livre")]
-        public string campolivre
-        {
-            get
-            {
-                return this.campolivreField;
-            }
-            set
-            {
-                this.campolivreField = value;
-            }
-        }
+        public string CampoLivre { get; set; }
 
+        [XmlElementAttribute("bin")]
+        public string Bin { get; set; }
 
-        public string bin
-        {
-            get
-            {
-                return this.binField;
-            }
-            set
-            {
-                this.binField = value;
-            }
-        }
+        [XmlElementAttribute("gerar-token")]
+        public bool GerarToken { get; set; }
 
-
-        public bool gerartoken
-        {
-            get
-            {
-                return this.gerartokenField;
-            }
-            set
-            {
-                this.gerartokenField = value;
-            }
-        }
-
-        public RequisicaoTransacaoAvs avs
-        {
-            get
-            {
-                return this.avsField;
-            }
-            set
-            {
-                this.avsField = value;
-            }
-        }
+        [XmlElementAttribute("avs")]
+        public RequisicaoTransacaoAvs Avs { get; set; }
     }
 
 
@@ -228,6 +90,7 @@ namespace Cielo.Messages
     }
 
 
+
     [XmlIncludeAttribute(typeof(DadosEcAutenticacao))]
 
     [SerializableAttribute()]
@@ -236,36 +99,11 @@ namespace Cielo.Messages
     [XmlTypeAttribute(Namespace = "http://ecommerce.cbmp.com.br")]
     public partial class DadosEc
     {
+        [XmlElementAttribute("numero")]
+        public string Numero { get; set; }
 
-        private string numeroField;
-
-        private string chaveField;
-
-
-        public string numero
-        {
-            get
-            {
-                return this.numeroField;
-            }
-            set
-            {
-                this.numeroField = value;
-            }
-        }
-
-
-        public string chave
-        {
-            get
-            {
-                return this.chaveField;
-            }
-            set
-            {
-                this.chaveField = value;
-            }
-        }
+        [XmlElementAttribute("chave")]
+        public string Chave { get; set; }
     }
 
 
@@ -401,37 +239,13 @@ namespace Cielo.Messages
     [XmlTypeAttribute(Namespace = "http://ecommerce.cbmp.com.br")]
     public partial class DadosCelular
     {
+        [XmlElementAttribute("ddd")]
+        public string Ddd { get; set; }
 
-        private string dddField;
-
-        private string numeroField;
-
-
-        public string ddd
-        {
-            get
-            {
-                return this.dddField;
-            }
-            set
-            {
-                this.dddField = value;
-            }
-        }
-
-
-        public string numero
-        {
-            get
-            {
-                return this.numeroField;
-            }
-            set
-            {
-                this.numeroField = value;
-            }
-        }
+        [XmlElementAttribute("numero")]
+        public string Numero { get; set; }
     }
+
 
 
     [XmlIncludeAttribute(typeof(ProcessamentoAutorizacao))]
@@ -443,67 +257,17 @@ namespace Cielo.Messages
     [XmlTypeAttribute(Namespace = "http://ecommerce.cbmp.com.br")]
     public partial class Processamento
     {
+        [XmlElementAttribute("codigo")]
+        public Status Codigo { get; set; }
 
-        private Status codigoField;
-
-        private string mensagemField;
-
-        private System.DateTime datahoraField;
-
-        private string valorField;
-
-
-        public Status codigo
-        {
-            get
-            {
-                return this.codigoField;
-            }
-            set
-            {
-                this.codigoField = value;
-            }
-        }
-
-
-        public string mensagem
-        {
-            get
-            {
-                return this.mensagemField;
-            }
-            set
-            {
-                this.mensagemField = value;
-            }
-        }
-
+        [XmlElementAttribute("mensagem")]
+        public string Mensagem { get; set; }
 
         [XmlElementAttribute("data-hora")]
-        public System.DateTime datahora
-        {
-            get
-            {
-                return this.datahoraField;
-            }
-            set
-            {
-                this.datahoraField = value;
-            }
-        }
+        public DateTime DataHora { get; set; }
 
-
-        public string valor
-        {
-            get
-            {
-                return this.valorField;
-            }
-            set
-            {
-                this.valorField = value;
-            }
-        }
+        [XmlElementAttribute("valor")]
+        public string Valor { get; set; }
     }
 
 
@@ -518,22 +282,17 @@ namespace Cielo.Messages
         [XmlEnumAttribute("1")]
         EmAndamento = 1,
 
-
         [XmlEnumAttribute("2")]
         Autenticada = 2,
-
 
         [XmlEnumAttribute("3")]
         NaoAutenticada = 3,
 
-
         [XmlEnumAttribute("4")]
         Autorizada = 4,
 
-
         [XmlEnumAttribute("5")]
         NaoAutorizada,
-
 
         [XmlEnumAttribute("6")]
         Capturada,
@@ -652,68 +411,19 @@ namespace Cielo.Messages
     [XmlTypeAttribute(Namespace = "http://ecommerce.cbmp.com.br")]
     public partial class FormaPagamento
     {
-
-        private FormaPagamentoBandeira bandeiraField;
-
-        private bool bandeiraFieldSpecified;
-
-        private FormaPagamentoProduto produtoField;
-
-        private int parcelasField;
-
-
-        public FormaPagamentoBandeira bandeira
-        {
-            get
-            {
-                return this.bandeiraField;
-            }
-            set
-            {
-                this.bandeiraField = value;
-            }
-        }
-
+        [XmlElementAttribute("bandeira")]
+        public FormaPagamentoBandeira Bandeira { get; set; }
 
         [XmlIgnoreAttribute()]
-        public bool bandeiraSpecified
-        {
-            get
-            {
-                return this.bandeiraFieldSpecified;
-            }
-            set
-            {
-                this.bandeiraFieldSpecified = value;
-            }
-        }
+        public bool BandeiraSpecified { get; set; }
 
+        [XmlElementAttribute("produto")]
+        public FormaPagamentoProduto Produto { get; set; }
 
-        public FormaPagamentoProduto produto
-        {
-            get
-            {
-                return this.produtoField;
-            }
-            set
-            {
-                this.produtoField = value;
-            }
-        }
-
-
-        public int parcelas
-        {
-            get
-            {
-                return this.parcelasField;
-            }
-            set
-            {
-                this.parcelasField = value;
-            }
-        }
+        [XmlElementAttribute("parcelas")]
+        public int Parcelas { get; set; }
     }
+
 
 
     [SerializableAttribute()]
@@ -730,12 +440,12 @@ namespace Cielo.Messages
         Debito = 4
     }
 
+    
 
     [SerializableAttribute()]
     [XmlTypeAttribute(AnonymousType = true, Namespace = "http://ecommerce.cbmp.com.br")]
     public enum FormaPagamentoBandeira
     {
-
         [XmlEnumAttribute("visa")]
         Visa,
 
@@ -764,159 +474,34 @@ namespace Cielo.Messages
     [XmlTypeAttribute(Namespace = "http://ecommerce.cbmp.com.br")]
     public partial class DadosPedido
     {
-        public DadosPedido()
-        {
-        }
+        [XmlElementAttribute("numero")]
+        public string Numero { get; set; }
 
-        public DadosPedido(string numero, decimal valor, string descricao)
-        {
-            numeroField = numero;
-            valorField = valor.ToFormatoCielo();
-            moedaField = Moeda.Real;
-            datahoraField = DateTime.Now;
-            descricaoField = descricao;
-            idiomaField = Idioma.PT;
-        }
+        [XmlElementAttribute("valor")]
+        public int Valor { get; set; }
 
-        private string numeroField;
-
-        private int valorField;
-
-        private Moeda moedaField;
-
-        private DateTime datahoraField;
-
-        private string descricaoField;
-
-        private Idioma idiomaField;
-
-        private bool idiomaFieldSpecified;
-
-        private string softdescriptorField;
-
-        private int taxaembarqueField;
-
-
-        public string numero
-        {
-            get
-            {
-                return this.numeroField;
-            }
-            set
-            {
-                this.numeroField = value;
-            }
-        }
-
-
-        public int valor
-        {
-            get
-            {
-                return this.valorField;
-            }
-            set
-            {
-                this.valorField = value;
-            }
-        }
-
-
-        public Moeda moeda
-        {
-            get
-            {
-                return this.moedaField;
-            }
-            set
-            {
-                this.moedaField = value;
-            }
-        }
-
+        [XmlElementAttribute("moeda")]
+        public Moeda Moeda { get; set; }
 
         [XmlElementAttribute("data-hora")]
-        public DateTime datahora
-        {
-            get
-            {
-                return this.datahoraField;
-            }
-            set
-            {
-                this.datahoraField = value;
-            }
-        }
+        public DateTime DataHora { get; set; }
 
+        [XmlElementAttribute("descricao")]
+        public string Descricao { get; set; }
 
-        public string descricao
-        {
-            get
-            {
-                return this.descricaoField;
-            }
-            set
-            {
-                this.descricaoField = value;
-            }
-        }
-
-
-        public Idioma idioma
-        {
-            get
-            {
-                return this.idiomaField;
-            }
-            set
-            {
-                this.idiomaField = value;
-            }
-        }
-
+        [XmlElementAttribute("idioma")]
+        public Idioma Idioma { get; set; }
 
         [XmlIgnoreAttribute()]
-        public bool idiomaSpecified
-        {
-            get
-            {
-                return this.idiomaFieldSpecified;
-            }
-            set
-            {
-                this.idiomaFieldSpecified = value;
-            }
-        }
-
+        public bool IdiomaSpecified { get; set; }
 
         [XmlElementAttribute("soft-descriptor")]
-        public string softdescriptor
-        {
-            get
-            {
-                return this.softdescriptorField;
-            }
-            set
-            {
-                this.softdescriptorField = value;
-            }
-        }
-
+        public string SoftDescriptor { get; set; }
 
         [XmlElementAttribute("taxa-embarque")]
-        public int taxaembarque
-        {
-            get
-            {
-                return this.taxaembarqueField;
-            }
-            set
-            {
-                this.taxaembarqueField = value;
-            }
-        }
+        public int TaxaEmbarque { get; set; }
     }
+
 
 
     [SerializableAttribute()]
@@ -953,97 +538,23 @@ namespace Cielo.Messages
     [XmlTypeAttribute(Namespace = "http://ecommerce.cbmp.com.br")]
     public partial class DadosPortador
     {
+        [XmlElementAttribute("numero")]
+        public string Numero { get; set; }
 
-        private string numeroField;
+        [XmlElementAttribute("validade")]
+        public string Validade { get; set; }
 
-        private string validadeField;
-
-        private DadosCartaoIndicador indicadorField;
-
-        private string codigosegurancaField;
-
-        private string nomeportadorField;
-
-        private string tokenField;
-
-
-        public string numero
-        {
-            get
-            {
-                return this.numeroField;
-            }
-            set
-            {
-                this.numeroField = value;
-            }
-        }
-
-
-        public string validade
-        {
-            get
-            {
-                return this.validadeField;
-            }
-            set
-            {
-                this.validadeField = value;
-            }
-        }
-
-
-        public DadosCartaoIndicador indicador
-        {
-            get
-            {
-                return this.indicadorField;
-            }
-            set
-            {
-                this.indicadorField = value;
-            }
-        }
-
+        [XmlElementAttribute("indicador")]
+        public DadosCartaoIndicador Indicador { get; set; }
 
         [XmlElementAttribute("codigo-seguranca")]
-        public string codigoseguranca
-        {
-            get
-            {
-                return this.codigosegurancaField;
-            }
-            set
-            {
-                this.codigosegurancaField = value;
-            }
-        }
-
+        public string CodigoSeguranca { get; set; }
 
         [XmlElementAttribute("nome-portador")]
-        public string nomeportador
-        {
-            get
-            {
-                return this.nomeportadorField;
-            }
-            set
-            {
-                this.nomeportadorField = value;
-            }
-        }
+        public string NomePortador { get; set; }
 
-        public string token
-        {
-            get
-            {
-                return this.tokenField;
-            }
-            set
-            {
-                this.tokenField = value;
-            }
-        }
+        [XmlElementAttribute("token")]
+        public string Token { get; set; }
     }
 
 
@@ -1052,23 +563,19 @@ namespace Cielo.Messages
     [XmlTypeAttribute(AnonymousType = true, Namespace = "http://ecommerce.cbmp.com.br")]
     public enum DadosCartaoIndicador
     {
-
-
         [XmlEnumAttribute("0")]
         NaoInformado = 0,
-
 
         [XmlEnumAttribute("1")]
         Informado = 1,
 
-
         [XmlEnumAttribute("2")]
         Ilegivel = 2,
-
 
         [XmlEnumAttribute("9")]
         Inexistente = 9,
     }
+
 
 
     [XmlIncludeAttribute(typeof(RequisicaoNovaTransacaoCelular))]
@@ -1091,38 +598,11 @@ namespace Cielo.Messages
     [XmlTypeAttribute(Namespace = "http://ecommerce.cbmp.com.br")]
     public partial class Mensagem
     {
+        [XmlAttributeAttribute("id")]
+        public string Id { get; set; }
 
-        private string idField;
-
-        private MensagemVersao versaoField;
-
-
-        [XmlAttributeAttribute()]
-        public string id
-        {
-            get
-            {
-                return this.idField;
-            }
-            set
-            {
-                this.idField = value;
-            }
-        }
-
-
-        [XmlAttributeAttribute()]
-        public MensagemVersao versao
-        {
-            get
-            {
-                return this.versaoField;
-            }
-            set
-            {
-                this.versaoField = value;
-            }
-        }
+        [XmlAttributeAttribute("versao")]
+        public MensagemVersao Versao { get; set; }
     }
 
 
@@ -1151,6 +631,7 @@ namespace Cielo.Messages
     }
 
 
+
     [XmlIncludeAttribute(typeof(RequisicaoAutorizacaoPortador))]
     [XmlIncludeAttribute(typeof(RequisicaoAutorizacaoTid))]
     [XmlIncludeAttribute(typeof(RequisicaoConsulta))]
@@ -1163,43 +644,11 @@ namespace Cielo.Messages
     [XmlTypeAttribute(Namespace = "http://ecommerce.cbmp.com.br")]
     public partial class Requisicao : Mensagem
     {
-
-        private string tidField;
-
-        private DadosEc dadosecField;
-
-
-        public string tid
-        {
-            get
-            {
-                return this.tidField;
-            }
-            set
-            {
-                this.tidField = value;
-            }
-        }
-
+        [XmlElementAttribute("tid")]
+        public string Tid { get; set; }
 
         [XmlElementAttribute("dados-ec")]
-        public DadosEc dadosec
-        {
-            get
-            {
-                return this.dadosecField;
-            }
-            set
-            {
-                this.dadosecField = value;
-            }
-        }
-
-
-        public Requisicao()
-        {
-            this.dadosecField = new DadosEc { chave = "", numero = "" };
-        }
+        public DadosEc DadosEc { get; set; }
     }
 
 
@@ -1234,20 +683,8 @@ namespace Cielo.Messages
     [XmlTypeAttribute(Namespace = "http://ecommerce.cbmp.com.br")]
     public partial class RequisicaoTransacaoAvs
     {
-        private DadosAvs dadosavsField;
-
         [XmlElementAttribute("dados-avs")]
-        public DadosAvs dadosavs
-        {
-            get
-            {
-                return this.dadosavsField;
-            }
-            set
-            {
-                this.dadosavsField = value;
-            }
-        }
+        public DadosAvs DadosAvs { get; set; }
     }
 
 
@@ -1548,159 +985,38 @@ namespace Cielo.Messages
     [XmlRootAttribute("transacao", Namespace = "http://ecommerce.cbmp.com.br", IsNullable = false)]
     public partial class RetornoTransacao : Mensagem
     {
+        [XmlElementAttribute("tid")]
+        public string Tid { get; set; }
 
-        private string tidField;
-
-        private string panField;
-
-        private DadosPedido dadospedidoField;
-
-        private FormaPagamento formapagamentoField;
-
-        private Status statusField;
-
-        private ProcessamentoAutenticacao autenticacaoField;
-
-        private ProcessamentoAutorizacao autorizacaoField;
-
-        private Processamento capturaField;
-
-        private Processamento cancelamentoField;
-
-        private string urlautenticacaoField;
-
-
-        public string tid
-        {
-            get
-            {
-                return this.tidField;
-            }
-            set
-            {
-                this.tidField = value;
-            }
-        }
-
-
-        public string pan
-        {
-            get
-            {
-                return this.panField;
-            }
-            set
-            {
-                this.panField = value;
-            }
-        }
-
+        [XmlElementAttribute("pan")]
+        public string Pan { get; set; }
 
         [XmlElementAttribute("dados-pedido")]
-        public DadosPedido dadospedido
-        {
-            get
-            {
-                return this.dadospedidoField;
-            }
-            set
-            {
-                this.dadospedidoField = value;
-            }
-        }
-
+        public DadosPedido DadosPedido { get; set; }
 
         [XmlElementAttribute("forma-pagamento")]
-        public FormaPagamento formapagamento
-        {
-            get
-            {
-                return this.formapagamentoField;
-            }
-            set
-            {
-                this.formapagamentoField = value;
-            }
-        }
+        public FormaPagamento FormaPagamento { get; set; }
 
+        [XmlElementAttribute("status")]
+        public Status Status { get; set; }
 
-        public Status status
-        {
-            get
-            {
-                return this.statusField;
-            }
-            set
-            {
-                this.statusField = value;
-            }
-        }
+        [XmlElementAttribute("autenticacao")]
+        public ProcessamentoAutenticacao Autenticacao { get; set; }
 
+        [XmlElementAttribute("autorizacao")]
+        public ProcessamentoAutorizacao Autorizacao { get; set; }
 
-        public ProcessamentoAutenticacao autenticacao
-        {
-            get
-            {
-                return this.autenticacaoField;
-            }
-            set
-            {
-                this.autenticacaoField = value;
-            }
-        }
+        [XmlElementAttribute("captura")]
+        public Processamento Captura { get; set; }
 
-
-        public ProcessamentoAutorizacao autorizacao
-        {
-            get
-            {
-                return this.autorizacaoField;
-            }
-            set
-            {
-                this.autorizacaoField = value;
-            }
-        }
-
-
-        public Processamento captura
-        {
-            get
-            {
-                return this.capturaField;
-            }
-            set
-            {
-                this.capturaField = value;
-            }
-        }
-
-
-        public Processamento cancelamento
-        {
-            get
-            {
-                return this.cancelamentoField;
-            }
-            set
-            {
-                this.cancelamentoField = value;
-            }
-        }
-
+        [XmlElementAttribute("cancelamento")]
+        public Processamento Cancelamento { get; set; }
 
         [XmlElementAttribute("url-autenticacao")]
-        public string urlautenticacao
-        {
-            get
-            {
-                return this.urlautenticacaoField;
-            }
-            set
-            {
-                this.urlautenticacaoField = value;
-            }
-        }
+        public string UrlAutenticacao { get; set; }
+
+        [XmlElementAttribute("token")]
+        public Token Token { get; set; }
     }
 
 
@@ -1856,7 +1172,6 @@ namespace Cielo.Messages
     [XmlTypeAttribute(AnonymousType = true, Namespace = "http://ecommerce.cbmp.com.br")]
     public enum TokenStatus
     {
-
         [XmlEnumAttribute("0")]
         Bloqueado,
 
@@ -2149,7 +1464,28 @@ namespace Cielo.Messages
 
         public Retorno(string xml)
         {
-            RawXml = xml;
+            if (!string.IsNullOrWhiteSpace(xml))
+            {
+                RawXml = xml;
+
+                if (!string.IsNullOrEmpty(xml))
+                {
+                    var encoding = Encoding.GetEncoding("ISO-8859-1");
+
+                    if (xml.Contains("</transacao>"))
+                    {
+                        Transacao = xml.ToType<RetornoTransacao>(encoding);
+                    }
+                    else if (xml.Contains("</erro>"))
+                    {
+                        Erro = xml.ToType<RetornoErro>(encoding);
+                    }
+                    else if (xml.Contains("</retorno-token>"))
+                    {
+                        Token = xml.ToType<RetornoToken>(encoding);
+                    }
+                }
+            }
         }
 
         public RetornoTransacao Transacao { get; set; }
@@ -2160,19 +1496,10 @@ namespace Cielo.Messages
 
         public string RawXml { get; set; }
 
-        public bool IsTransacao()
-        {
-            return Transacao != null;
-        }
+        public bool IsTransacao { get { return Transacao != null; } }
 
-        public bool IsErro()
-        {
-            return Erro != null;
-        }
+        public bool IsErro { get { return Erro != null; } }
 
-        public bool IsToken()
-        {
-            return Token != null;
-        }
+        public bool IsToken { get { return Token != null; } }
     }
 }
