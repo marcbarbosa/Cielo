@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿
+using System.Globalization;
 
 namespace Cielo.Helpers
 {
@@ -9,12 +7,16 @@ namespace Cielo.Helpers
     {
         public static int ToFormatoCielo(this decimal valor)
         {
-            return int.Parse(valor.ToString("N").Replace(",", string.Empty).Replace(".", string.Empty));
+            var decimalSeparator = CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator;
+
+            return int.Parse(valor.ToString("N").Replace(decimalSeparator, string.Empty));
         }
 
         public static decimal FromFormatoCielo(this string valor)
         {
-            var s = valor.Insert(valor.Length - 2, ",");
+            var decimalSeparator = CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator;
+
+            var s = valor.Insert(valor.Length - 2, decimalSeparator);
 
             return decimal.Parse(s);
         }
