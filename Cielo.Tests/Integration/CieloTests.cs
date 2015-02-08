@@ -80,7 +80,6 @@ namespace Cielo.Tests.Integration
                         Parcelas = 1
                     },
                     Autorizar = RequisicaoTransacaoAutorizar.AutorizarSemPassarPorAutenticacao,
-                    GerarToken = true,
                     Capturar = true,
                     Versao = MensagemVersao.v140
                 };
@@ -102,6 +101,11 @@ namespace Cielo.Tests.Integration
 
                 // act
                 var actual = cielo.Autorizacao(_defaultRequisicaoTransacao).Result;
+
+                if (!actual.IsTransacao)
+                {
+                    throw new Exception(actual.RawXml);
+                }
 
                 //assert
                 Assert.True(actual.IsTransacao);
