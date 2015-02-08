@@ -67,7 +67,7 @@ namespace Cielo.Tests.Integration
                     Id = DateTime.Now.Millisecond.ToString(),
                     DadosPedido = new DadosPedido
                     {
-                        Numero = "123",
+                        Numero = DateTime.Now.Millisecond.ToString(),
                         Valor = 100,
                         Moeda = Moeda.Real,
                         DataHora = DateTime.Now
