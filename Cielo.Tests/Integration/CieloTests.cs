@@ -102,11 +102,6 @@ namespace Cielo.Tests.Integration
                 // act
                 var actual = cielo.Autorizacao(_defaultRequisicaoTransacao).Result;
 
-                if (!actual.IsTransacao)
-                {
-                    throw new Exception(actual.RawXml);
-                }
-
                 //assert
                 Assert.True(actual.IsTransacao);
                 Assert.Equal(actual.Transacao.Status, Status.Capturada);
