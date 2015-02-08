@@ -39,7 +39,7 @@ namespace Cielo.Tests.Unit.Helpers
             }
 
             [Fact]
-            public void Returns0Point04Given43()
+            public void Returns0Point04Given4()
             {
                 // arrange
                 var input = "4";
