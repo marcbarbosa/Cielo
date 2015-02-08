@@ -440,7 +440,7 @@ namespace Cielo.Messages
         Debito = 4
     }
 
-    
+
 
     [SerializableAttribute()]
     [XmlTypeAttribute(AnonymousType = true, Namespace = "http://ecommerce.cbmp.com.br")]
@@ -484,6 +484,19 @@ namespace Cielo.Messages
         public Moeda Moeda { get; set; }
 
         [XmlElementAttribute("data-hora")]
+        public string DataHoraStr
+        {
+            get
+            { 
+                return DataHora.ToString("yyyy-MM-ddTHH:mm:ss"); 
+            }
+            set
+            {
+                DataHora = DateTime.Parse(value);
+            }
+        }
+
+        [XmlIgnore]
         public DateTime DataHora { get; set; }
 
         [XmlElementAttribute("descricao")]
