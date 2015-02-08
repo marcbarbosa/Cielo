@@ -264,6 +264,19 @@ namespace Cielo.Messages
         public string Mensagem { get; set; }
 
         [XmlElementAttribute("data-hora")]
+        public string DataHoraStr
+        {
+            get
+            {
+                return DataHora.ToString("yyyy-MM-ddTHH:mm:ss");
+            }
+            set
+            {
+                DataHora = DateTime.Parse(value);
+            }
+        }
+
+        [XmlIgnore]
         public DateTime DataHora { get; set; }
 
         [XmlElementAttribute("valor")]
