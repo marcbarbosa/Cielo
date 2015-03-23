@@ -41,13 +41,13 @@ namespace Cielo.Helpers
             Request.Method = pMethod;
             Request.UserAgent = _UserAgent;
 
-            var Writer = new StreamWriter(Request.GetRequestStream());
+            var Writer = new StreamWriter(Request.GetRequestStream(), Encoding.GetEncoding(_CharSet));
             Writer.Write(pData);
             Writer.Close();
             Writer.Dispose();
 
             var Response = (HttpWebResponse)Request.GetResponse();
-            StreamReader Reader = new StreamReader(Response.GetResponseStream());
+			StreamReader Reader = new StreamReader(Response.GetResponseStream(), Encoding.GetEncoding(_CharSet));
             Ret = Reader.ReadToEnd();
             Reader.Close();
             Reader.Dispose();
