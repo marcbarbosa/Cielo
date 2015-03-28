@@ -1,259 +1,95 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Configuration;
+﻿using Cielo.Helpers;
 using Cielo.Messages;
-using Cielo.Helpers;
+using System;
+using System.Configuration;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Cielo
 {
-    public class CieloClient
+    public class Cielo : ICielo
     {
-        #region "Private"
+        private readonly CieloConfig _config;
 
-        private string Numero;
-        private string Chave;
-        private Uri Endpoint;
-
-        #endregion
-
-        #region "Constructor"
-
-        public CieloClient()
+        public Cielo()
         {
-            if (ConfigurationManager.AppSettings["Cielo.Numero"] == null)
-                throw new ArgumentNullException("Cielo.Numero");
-
-            if (ConfigurationManager.AppSettings["Cielo.Chave"] == null)
-                throw new ArgumentNullException("Cielo.Chave");
-
-            if (ConfigurationManager.AppSettings["Cielo.Ambiente"] == null)
-                throw new ArgumentNullException("Cielo.Ambientes");
-
-            Numero = ConfigurationManager.AppSettings["Cielo.Numero"];
-            Chave = ConfigurationManager.AppSettings["Cielo.Chave"];
-
-            if (ConfigurationManager.AppSettings["Cielo.Ambiente"].Equals("Producao"))
-                Endpoint = new Uri(ConfigurationManager.AppSettings["Cielo.UrlProducao"]);
-            else
-                Endpoint = new Uri(ConfigurationManager.AppSettings["Cielo.UrlTeste"]);
+            _config = ConfigurationManager.GetSection("cielo") as CieloConfig;
         }
 
-        #endregion
-
-        #region "Public Methods"
-
-        public Retorno CriarTransacao(DadosPedido dadosPedido, Bandeira bandeira, Uri urlRetorno)
+        public Cielo(CieloConfig config)
         {
-            var dadosEc = new DadosEcAutenticacao { numero = Numero, chave = Chave };
-            var formaPagamento = new FormaPagamento { bandeira = bandeira, parcelas = 1, produto = FormaPagamentoProduto.CreditoAVista };
-            var req = RequisicaoNovaTransacaoAutorizar.AutorizarAutenticadaENaoAutenticada;
-            var capturar = true;
-
-            return CriarTransacao(dadosPedido, dadosEc, formaPagamento, urlRetorno, req, capturar);
+            _config = config;
         }
 
-        public Retorno CriarTransacao(DadosPedido dadosPedido, DadosEcAutenticacao dadosEc, FormaPagamento formaPagamento,
-                                      Uri urlRetorno, RequisicaoNovaTransacaoAutorizar reqAutorizar, bool capturar)
+        public async Task<Retorno> Autorizacao(RequisicaoTransacao requisicaoTransacao)
         {
-            var ret = new Retorno();
-
-            var msg = new RequisicaoNovaTransacao
+            if (requisicaoTransacao.DadosEc == null)
             {
-                id = dadosPedido.numero,
-                versao = MensagemVersao.v110,
-                dadosec = dadosEc,
-                dadospedido = dadosPedido,
-                formapagamento = formaPagamento,
-                urlretorno = urlRetorno.AbsoluteUri,
-                autorizar = reqAutorizar,
-                capturar = capturar
-            };
-
-            try
-            {
-                var xml = msg.ToXml<RequisicaoNovaTransacao>(Encoding.GetEncoding("iso-8859-1"));
-
-                var res = EnviarMensagem(xml);
-
-                ret = XmlToRetorno(res);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
+                requisicaoTransacao.DadosEc = new DadosEc { Chave = _config.Chave, Numero = _config.Numero };
             }
 
-            return ret;
+            return await SendMessage(requisicaoTransacao);
         }
 
-        public Retorno ConsultarTransacao(string tid)
+        public async Task<Retorno> Autorizacao(RequisicaoAutorizacaoTid requisacaoAutorizacaoTid)
         {
-            var ret = new Retorno();
-
-            var dadosEc = new DadosEcAutenticacao { numero = Numero, chave = Chave };
-
-            var msg = new RequisicaoConsulta
-            {
-                id = DateTime.Now.ToString("yyyyMMdd"),
-                versao = MensagemVersao.v110,
-                tid = tid,
-                dadosec = dadosEc
-            };
-
-            try
-            {
-                var xml = msg.ToXml<RequisicaoConsulta>(Encoding.GetEncoding("iso-8859-1"));
-
-                var res = EnviarMensagem(xml);
-
-                ret = XmlToRetorno(res);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-
-            return ret;
+            return await SendMessage(requisacaoAutorizacaoTid);
         }
 
-        public Retorno AutorizarTransacao(string tid)
+        public async Task<Retorno> RenovaFacil()
         {
-            var ret = new Retorno();
-
-            var dadosEc = new DadosEcAutenticacao { numero = Numero, chave = Chave };
-
-            var msg = new RequisicaoAutorizacaoTid
-            {
-                id = DateTime.Now.ToString("yyyyMMdd"),
-                versao = MensagemVersao.v110,
-                tid = tid,
-                dadosec = dadosEc
-            };
-
-            try
-            {
-                var xml = msg.ToXml<RequisicaoAutorizacaoTid>(Encoding.GetEncoding("iso-8859-1"));
-
-                var res = EnviarMensagem(xml);
-
-                ret = XmlToRetorno(res);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-
-            return ret;
+            throw new NotImplementedException();
         }
 
-        public Retorno CancelarTransacao(string tid)
+        public async Task<Retorno> GeracaoToken(RequisicaoToken requisicaoToken)
         {
-            var ret = new Retorno();
-
-            var dadosEc = new DadosEcAutenticacao { numero = Numero, chave = Chave };
-
-            var msg = new RequisicaoCancelamento
-            {
-                id = DateTime.Now.ToString("yyyyMMdd"),
-                versao = MensagemVersao.v110,
-                tid = tid,
-                dadosec = dadosEc
-            };
-
-            try
-            {
-                var xml = msg.ToXml<RequisicaoCancelamento>(Encoding.GetEncoding("iso-8859-1"));
-
-                var res = EnviarMensagem(xml);
-
-                ret = XmlToRetorno(res);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-
-            return ret;
+            return await SendMessage(requisicaoToken);
         }
 
-        public Retorno CapturarTransacao(string tid)
+        public async Task<Retorno> Captura(RequisicaoCaptura requisicaoCaptura)
         {
-            return CapturarTransacao(tid, -1, string.Empty);
+            return await SendMessage(requisicaoCaptura);
         }
 
-        public Retorno CapturarTransacao(string tid, decimal valor, string anexo)
+        public async Task<Retorno> Consulta(RequisicaoConsulta requisicaoConsulta)
         {
-            var ret = new Retorno();
-
-            var dadosEc = new DadosEcAutenticacao { numero = Numero, chave = Chave };
-
-            var msg = new RequisicaoCaptura
-            {
-                id = DateTime.Now.ToString("yyyyMMdd"),
-                versao = MensagemVersao.v110,
-                tid = tid,
-                dadosec = dadosEc
-            };
-
-            if (valor > -1)
-                msg.valor = valor.ToFormatoCielo();
-
-            if (!string.IsNullOrWhiteSpace(anexo))
-                msg.anexo = anexo;
-
-            try
-            {
-                var xml = msg.ToXml<RequisicaoCaptura>(Encoding.GetEncoding("iso-8859-1"));
-
-                var res = EnviarMensagem(xml);
-
-                ret = XmlToRetorno(res);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-
-            return ret;
+            return await SendMessage(requisicaoConsulta);
         }
 
-        #endregion
-
-        #region "Private Methods"
-
-        private Retorno XmlToRetorno(string xml)
+        public async Task<Retorno> Consulta(RequisicaoConsultaChSec requisicaoConsultaChSec)
         {
-            var ret = new Retorno();
+            return await SendMessage(requisicaoConsultaChSec);
+        }
 
-            if (!string.IsNullOrEmpty(xml))
+        public async Task<Retorno> Cancelamento(RequisicaoCancelamento requisicaoCancelamento)
+        {
+            return await SendMessage(requisicaoCancelamento);
+        }
+
+        public async Task<Retorno> Cancelamento(RequisicaoCancelamentoParcial requisicaoCancelamentoParcial)
+        {
+            return await SendMessage(requisicaoCancelamentoParcial);
+        }
+
+        private async Task<Retorno> SendMessage<T>(T mensagem)
+        {
+            var encoding = Encoding.GetEncoding("ISO-8859-1");
+
+            var xml = mensagem.ToXml<T>(encoding);
+
+            var contentPayload = new StringContent(string.Format("mensagem={0}", xml), encoding, "application/x-www-form-urlencoded");
+
+            var response = await new HttpClient().PostAsync(_config.Endpoint.AbsoluteUri, contentPayload);
+
+            if (response.IsSuccessStatusCode)
             {
-                RetornoTransacao transacao;
-                RetornoErro erro;
+                var responseXml = await response.Content.ReadAsStringAsync();
 
-                if (xml.Contains("</transacao>"))
-                {
-                    transacao = xml.ToType<RetornoTransacao>(Encoding.GetEncoding("iso-8859-1"));
-                    ret.Transacao = transacao;
-                    ret.Transacao.rawXml = xml;
-                }
-                else if (xml.Contains("</erro>"))
-                {
-                    erro = xml.ToType<RetornoErro>(Encoding.GetEncoding("iso-8859-1"));
-                    ret.Erro = erro;
-                }
+                return new Retorno(responseXml);
             }
 
-            return ret;
+            return null;
         }
-
-        private string EnviarMensagem(string xml)
-        {
-            var http = new EasyHttpClient("iso-8859-1", "application/x-www-form-urlencoded", "CieloClient");
-
-            return http.Post(Endpoint.AbsoluteUri, string.Format("mensagem={0}", xml));
-        }
-
-        #endregion
     }
 }
