@@ -1,5 +1,6 @@
 ﻿using Cielo.Messages;
 using System;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Cielo.Tests.Integration
@@ -32,7 +33,7 @@ namespace Cielo.Tests.Integration
             }
 
             [Fact]
-            public void ReturnsCorrectDadosToken()
+            public async Task ReturnsCorrectDadosToken()
             {
                 // arrange
                 var expectedDadosToken = new DadosToken
@@ -45,7 +46,7 @@ namespace Cielo.Tests.Integration
                 var cielo = new Cielo();
 
                 // act
-                var actualResponse = cielo.GeracaoToken(defaultRequisicaoToken).Result;
+                var actualResponse = await cielo.GeracaoToken(defaultRequisicaoToken);
                 var actualDadosToken = actualResponse.Token.token.dadostoken;
 
                 //assert
@@ -86,7 +87,7 @@ namespace Cielo.Tests.Integration
             }
 
             [Fact]
-            public void WithCreditCardReturnsTransacao()
+            public async Task WithCreditCardReturnsTransacao()
             {
                 // arrange
                 var cielo = new Cielo();
@@ -100,7 +101,7 @@ namespace Cielo.Tests.Integration
                 };
 
                 // act
-                var actual = cielo.Autorizacao(_defaultRequisicaoTransacao).Result;
+                var actual = await cielo.Autorizacao(_defaultRequisicaoTransacao);
 
                 //assert
                 Assert.True(actual.IsTransacao);

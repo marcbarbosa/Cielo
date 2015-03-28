@@ -7,13 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cielo", "Cielo\Cielo.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cielo.Tests", "Cielo.Tests\Cielo.Tests.csproj", "{A276D8C7-A16A-4782-BD97-D489E6BE64CE}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{BC79737B-E47F-4836-90E5-0D0175FC3E65}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\NuGet.Config = .nuget\NuGet.Config
-		.nuget\NuGet.exe = .nuget\NuGet.exe
-		.nuget\NuGet.targets = .nuget\NuGet.targets
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B3D160CF-669D-4B45-A0F1-F88877EAC1E1}"
 	ProjectSection(SolutionItems) = preProject
 		cielo.vssettings = cielo.vssettings
